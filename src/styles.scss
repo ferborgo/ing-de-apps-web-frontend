@@ -7,13 +7,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .navbar {
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid black;
-  padding: 15px;
   height: 64px;
   align-items: center;
   margin-bottom: 50px;
 
   .producto {
     font-size: 30px;
+    padding-left: 15px;
+  }
+
+  .boton {
+    height: 100%;
+    display: flex;
   }
 }
