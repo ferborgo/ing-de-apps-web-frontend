@@ -1,5 +1,33 @@
 <div class="invitados-evento">
   <h2> Ahora agreguemos a los invitados </h2>
-  <button (click)="onAnterior()"> Anterior </button>
-  <button (click)="onSiguiente()"> Siguiente </button>
+
+
+  <h4> ¡Primero díganos quién es usted!</h4>
+  <form [formGroup]="creadorForm">
+
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input formControlName="nombre" matInput placeholder="Fernando...">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email (opcional)</mat-label>
+        <input formControlName="email" matInput placeholder="fernando@gmail.com...">
+      </mat-form-field>
+    </div>
+
+  </form>
+
+  <h4> Y ahora los invitados </h4>
+  <div *ngFor="let invitado of invitados">
+    Nombre: {{ invitado.nombre }}
+    Email: {{ invitado.email }}
+  </div>
+
+  <button mat-button (click)="agregarOtro()"> Agregar otro </button>
+
+
+  <button mat-button (click)="onAnterior()"> Anterior </button>
+  <button mat-button (click)="onSiguiente()"> Siguiente </button>
 </div>

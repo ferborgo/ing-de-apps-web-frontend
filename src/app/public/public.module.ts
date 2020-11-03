@@ -12,6 +12,8 @@ import { InvitadosEventoComponent } from './components/invitados-evento/invitado
 import { ConfigEventoComponent } from './components/config-evento/config-evento.component';
 import { ConfirmacionEventoComponent } from './components/confirmacion-evento/confirmacion-evento.component';
 import { EventoService } from './services/evento.service';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { EventoService } from './services/evento.service';
     // Material Modules
     MatStepperModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatSlideToggleModule,
+    MatButtonModule
   ],
   providers: [EventoService]
 })

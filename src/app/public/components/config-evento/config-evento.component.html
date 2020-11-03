@@ -1,5 +1,46 @@
 <div class="config-evento">
   <h2> Configure su evento </h2>
-  <button (click)="onAnterior()"> Anterior </button>
-  <button (click)="onSiguiente()"> Finalizar </button>
+
+  <div class="config-list">
+
+    <div class="config-item">
+      <mat-slide-toggle [checked]=true></mat-slide-toggle>
+      <div class="texto">
+        <div clasS="pregunta">
+          ¿Quiere que la encuesta sea oculta entre los invitados?
+        </div>
+        <div class="aclaracion">
+          Sólo usted podría ver los resultados totales
+        </div>
+      </div>
+    </div>
+
+    <div class="config-item">
+      <mat-slide-toggle [checked]=false></mat-slide-toggle>
+      <div class="texto">
+        <div clasS="pregunta">
+          ¿Quiere que los invitados puedan elegir sólo una opción?
+        </div>
+        <div class="aclaracion">
+          Los invitados podrían elegir solamente una opción entre todas las que ha elegido
+        </div>
+      </div>
+    </div>
+
+    <div class="config-item">
+      <mat-slide-toggle [checked]=true></mat-slide-toggle>
+      <div class="texto">
+        <div clasS="pregunta">
+          ¿Quiere que personas que no agregó como invitados puedan participar?
+        </div>
+        <div class="aclaracion">
+          Personas que tengan el enlace y la contraseña podrían entrar al evento y elegir sus preferencias, incluso si no los agregó en la lista de invitados
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <button mat-button (click)="onAnterior()"> Anterior </button>
+  <button mat-button (click)="onSiguiente()"> Finalizar </button>
 </div>

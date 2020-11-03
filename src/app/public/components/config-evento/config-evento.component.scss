@@ -1,0 +1,25 @@
+.config-evento {
+  margin-right: 20px;
+  margin-left: 20px;
+  .config-list {
+    .config-item {
+      display: flex;
+      align-items: center;
+      margin-top: 45px;
+      margin-bottom: 45px;
+
+      .texto {
+        margin-left: 15px;
+        text-align: initial;
+
+        .pregunta {
+          font-size: 18px;
+        }
+
+        .aclaracion {
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}

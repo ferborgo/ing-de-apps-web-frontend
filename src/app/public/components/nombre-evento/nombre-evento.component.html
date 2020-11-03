@@ -1,6 +1,6 @@
 <div class="nombre-evento">
 
-  <h2>Empecemos con el nombre</h2>
+  <h2>Empecemos con el nombre del evento</h2>
 
   <mat-form-field appearance="outline">
     <mat-label>Nombre</mat-label>
@@ -10,11 +10,11 @@
   <h2>También podés dejar una descripción</h2>
 
   <mat-form-field appearance="outline">
-    <mat-label>Descripción</mat-label>
-    <input [formControl]="descripcion" matInput placeholder="Opcional...">
+    <mat-label>Descripción (opcional)</mat-label>
+    <textarea rows="10" cols="40" [formControl]="descripcion" matInput placeholder="Ejemplo de una descripción..."></textarea>
   </mat-form-field>
 
   <div class="botones">
-    <button (click)="onSiguiente()"> Siguiente </button>
+    <button mat-button (click)="onSiguiente()"> Siguiente </button>
   </div>
 </div>
