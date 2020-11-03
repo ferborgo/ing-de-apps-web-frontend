@@ -11,9 +11,17 @@ import { OpcionesEventoComponent } from './components/opciones-evento/opciones-e
 import { InvitadosEventoComponent } from './components/invitados-evento/invitados-evento.component';
 import { ConfigEventoComponent } from './components/config-evento/config-evento.component';
 import { ConfirmacionEventoComponent } from './components/confirmacion-evento/confirmacion-evento.component';
+import { EventoService } from './services/evento.service';
 
 @NgModule({
-  declarations: [NuevoEventoComponent, NombreEventoComponent, OpcionesEventoComponent, InvitadosEventoComponent, ConfigEventoComponent, ConfirmacionEventoComponent],
+  declarations: [
+    NuevoEventoComponent,
+    NombreEventoComponent,
+    OpcionesEventoComponent,
+    InvitadosEventoComponent,
+    ConfigEventoComponent,
+    ConfirmacionEventoComponent
+  ],
   imports: [
     CommonModule,
     PublicRoutingModule,
@@ -23,6 +31,7 @@ import { ConfirmacionEventoComponent } from './components/confirmacion-evento/co
     MatStepperModule,
     MatFormFieldModule,
     MatInputModule
-  ]
+  ],
+  providers: [EventoService]
 })
 export class PublicModule { }

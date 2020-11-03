@@ -4,6 +4,12 @@
     justify-content: space-between;
     border-bottom: 1px solid black;
     padding: 15px;
+    align-items: center;
+    height: 64px;
+
+    .producto {
+      font-size: 30px;
+    }
   }
 
   .content {
