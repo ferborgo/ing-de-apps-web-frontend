@@ -5,7 +5,7 @@
       Meeting-o-Matic
     </div>
     <div class="boton">
-      <button> Iniciar sesión </button>
+      <button [routerLink]="['home']"> Iniciar sesión </button>
     </div>
   </nav>
 
@@ -31,7 +31,7 @@
         </div>
 
         <div class="confirmacion-evento" *ngIf="mostrar('confirmacion')">
-          <app-confirmacion-evento></app-confirmacion-evento>
+          <app-confirmacion-evento (siguiente)="onSiguiente($event)"></app-confirmacion-evento>
         </div>
 
       </div>

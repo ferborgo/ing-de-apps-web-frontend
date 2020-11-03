@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-confirmacion-evento',
@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfirmacionEventoComponent implements OnInit {
 
+  @Output() siguiente = new EventEmitter<string>();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onVolver(): void {
+    this.siguiente.emit('nombre');
   }
 
 }
