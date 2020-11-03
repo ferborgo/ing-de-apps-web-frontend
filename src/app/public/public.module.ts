@@ -14,6 +14,7 @@ import { ConfirmacionEventoComponent } from './components/confirmacion-evento/co
 import { EventoService } from './services/evento.service';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
+import { EventoDetailComponent } from './pages/evento-detail/evento-detail.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { MatButtonModule } from '@angular/material/button';
     OpcionesEventoComponent,
     InvitadosEventoComponent,
     ConfigEventoComponent,
-    ConfirmacionEventoComponent
+    ConfirmacionEventoComponent,
+    EventoDetailComponent
   ],
   imports: [
     CommonModule,
