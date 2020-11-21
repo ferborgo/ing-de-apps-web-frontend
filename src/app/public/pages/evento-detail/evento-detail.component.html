@@ -1,3 +1,12 @@
-<div class="evento-detail">
-  <h1> Evento {{ id }} </h1>
+<div class="evento-detail" *ngIf="evento ; else cargando">
+  <h1> {{ evento.nombre }} </h1>
+  <h4> Creado por {{ creador }} el día tal</h4>
+
+  <p>
+    {{ evento.descripcion }}
+  </p>
 </div>
+
+<ng-template #cargando>
+  cargando...
+</ng-template>

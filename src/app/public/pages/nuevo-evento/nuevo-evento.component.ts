@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EventoService } from '../../services/evento.service';
 
 export enum toggles {
   NOMBRE = 'nombre',
@@ -17,7 +18,9 @@ export class NuevoEventoComponent implements OnInit {
 
   private toggleMap: Map<string, boolean>;
   private ultimoActivo: string;
-  constructor() { }
+  constructor(
+    private eventoService: EventoService
+  ) { }
 
   ngOnInit() {
     this.toggleMap = this.initToggles();
@@ -42,6 +45,10 @@ export class NuevoEventoComponent implements OnInit {
     this.toggleMap.set(this.ultimoActivo, false);
     this.toggleMap.set(event, true);
     this.ultimoActivo = event;
+  }
+
+  getAll() {
+    this.eventoService.example();
   }
 
 }
