@@ -15,6 +15,7 @@ import { EventoService } from './services/evento.service';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { EventoDetailComponent } from './pages/evento-detail/evento-detail.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,9 @@ import { EventoDetailComponent } from './pages/evento-detail/evento-detail.compo
     MatFormFieldModule,
     MatInputModule,
     MatSlideToggleModule,
-    MatButtonModule
+    MatButtonModule,
+
+    SharedModule
   ],
   providers: [EventoService]
 })

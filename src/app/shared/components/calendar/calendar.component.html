@@ -1,0 +1,11 @@
+<div class="calendar-container">
+  <mwl-calendar-week-view
+  [viewDate]="viewDate"
+  [events]="events"
+  [refresh]="forRefresh"
+  [dayStartHour]="7"
+  (hourSegmentClicked)="onHourSegmentClick($event)"
+  (eventTimesChanged)="onEventTimeChange($event)"
+  >
+  </mwl-calendar-week-view>
+</div>
