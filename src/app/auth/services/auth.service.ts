@@ -4,6 +4,11 @@ import { UserControllerService } from 'destino/api/userController.service';
 import { TokenService } from './token.service';
 import { tap } from 'rxjs/operators';
 
+export interface IUser {
+  username: string;
+  email: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -45,5 +50,14 @@ export class AuthService {
   logout() {
     this.tokenService.signOut();
     this.router.navigateByUrl('');
+  }
+
+  getLoggedUser(): IUser {
+    const user: IUser = this.tokenService.getUser();
+    if (! user) {
+      this.logout();
+      return;
+    }
+    return user;
   }
 }

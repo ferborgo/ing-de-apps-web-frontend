@@ -9,5 +9,65 @@
     </div>
   </nav>
 
-  <h2> Tu Perfil </h2>
+  <div class="content">
+    <div class="sidebar">
+
+      <div class="sidebar-content">
+        <h2> Tu Perfil </h2>
+        <p>
+          Te quedan 9 eventos para este mes de noviembre
+        </p>
+        <div class="usuario">
+          {{ user.email }}
+        </div>
+        <hr>
+        <div class="filtros">
+          Filtros...
+        </div>
+
+      </div>
+
+      <div class="premium">
+        <hr>
+        <p>¿Querés eventos ilimitados?</p>
+        <button mat-button> PREMIUM </button>
+      </div>
+    </div>
+
+    <div class="eventos">
+
+      <mat-card>
+        <mat-card-title> Nuevo evento </mat-card-title>
+        <mat-card-actions>
+          <mat-icon class="add-icon"> add </mat-icon>
+        </mat-card-actions>
+      </mat-card>
+
+      <mat-card>
+        <mat-card-subtitle> Creada el día 23 de octubre </mat-card-subtitle>
+        <mat-card-title> F5 semana que viene </mat-card-title>
+        <mat-card-content>
+          <div> 5 invitados </div>
+          <div> 3 días distintos </div>
+          <div> 4 opciones </div>
+          <mat-card-actions>
+            <button mat-button> Ver </button>
+          </mat-card-actions>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card>
+        <mat-card-subtitle> Creada el día 23 de octubre </mat-card-subtitle>
+        <mat-card-title> F5 semana que viene </mat-card-title>
+        <mat-card-content>
+          <div> 5 invitados </div>
+          <div> 3 días distintos </div>
+          <div> 4 opciones </div>
+          <mat-card-actions>
+            <button mat-button> Ver </button>
+          </mat-card-actions>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
 </div>
