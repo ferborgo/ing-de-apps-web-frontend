@@ -1,0 +1,22 @@
+.register h1 {
+  text-align: center;
+}
+.register .register-form {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.register .register-form mat-form-field {
+  width: 100%;
+}
+.register button {
+  width: 100%;
+  background-color: $green;
+  color: white;
+}
+.register .no-tenes-cuenta {
+  margin-top: 25px;
+  text-align: center;
+}
+.register .no-tenes-cuenta .login {
+  color: $green;
+}

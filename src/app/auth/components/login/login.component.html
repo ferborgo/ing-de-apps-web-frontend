@@ -1,19 +1,33 @@
 <div class="login">
-  <form [formGroup]="form" >
-    <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control"  formControlName="email" aria-describedby="emailHelp">
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="password" class="form-control" formControlName="password">
-    </div>
+    <h1>Iniciá sesión</h1>
+    <p class="error" *ngIf="error"> {{ error }} </p>
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" *ngIf="!loading ; else cargando">
 
-    <hr>
-    <button type="submit" [disabled]="!form.valid" (click)="login()" class="btn btn-primary">login classic</button>
-    <br>
-    <hr>
+        <mat-form-field appearance="outline">
+            <mat-label> Nombre de usuario </mat-label>
+            <input matInput formControlName="username">
+            <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label> Contraseña </mat-label>
+            <input type="password" matInput formControlName="password">
+            <mat-icon matSuffix>vpn_key</mat-icon>
+        </mat-form-field>
+
+        <button mat-button [disabled]="! loginForm.valid">
+            <!-- <a routerLink="/orders/list"> Login </a> -->
+            Login
+        </button>
     </form>
 
+    <div class="no-tenes-cuenta" *ngIf="!loading">
+        ¿No tenés cuenta? <a routerLink="/auth/register" class="registrate"> Registrate </a>
+    </div>
+
+    <ng-template #cargando>
+      <div class="spinner-container">
+        <mat-spinner></mat-spinner>
+      </div>
+    </ng-template>
 </div>

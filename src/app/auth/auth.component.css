@@ -1,0 +1,24 @@
+.login {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+.login .login-intro {
+  width: 70%;
+  background-color: $green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 5px 0 grey;
+}
+.login .login-intro .titulo-intro {
+  font-size: 30px;
+  color: white;
+}
+.login .login-form-wrapper {
+  width: 30%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  max-height: 100vh;
+  overflow: auto;
+}

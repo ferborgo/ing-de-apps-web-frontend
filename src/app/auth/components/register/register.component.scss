@@ -1,34 +1,15 @@
-.login {
-
-    .spinner-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+.register {
     h1 {
         text-align: center;
     }
 
-    .error {
-      text-align: center;;
-      color: red;
-    }
-
-    .login-form {
+    .register-form {
         margin-left: 15px;
         margin-right: 15px;
 
         mat-form-field {
             width: 100%;
         }
-
-        a {
-            color: white;
-        }
-    }
-
-    .disabled {
-        background-color: black;
     }
 
     button {
@@ -46,7 +27,7 @@
         margin-top: 25px;
         text-align: center;
 
-        .registrate {
+        .login {
             color: green;
         }
     }

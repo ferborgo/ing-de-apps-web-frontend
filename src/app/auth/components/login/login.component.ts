@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserControllerService } from 'destino';
-import { TokenService } from 'src/app/auth/services/token.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,34 +10,40 @@ import { TokenService } from 'src/app/auth/services/token.service';
 })
 export class LoginComponent implements OnInit {
 
-  form: FormGroup;
+  loginForm;
+  error: string;
+  loading = false;
 
   constructor(
-    private controllerUser: UserControllerService,
-    private tokerservice: TokenService,
-    private activeRouter: Router
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
-    this.form = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
+    this.loginForm = this.formBuilder.group({
+      username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
     });
   }
 
-  login(): void {
-    if (this.form.valid) {
-
-      const request = {
-        email: this.form.value.email,
-        password: this.form.value.password
-      };
-
-      this.controllerUser.userControllerLogin(request).subscribe((response) => {
-        this.tokerservice.saveToken(response.token);
-        this.activeRouter.navigateByUrl('/');
-      });
+  async onSubmit() {
+    this.loading = true;
+    this.error = null;
+    const username = this.loginForm.value.username;
+    const password = this.loginForm.value.password;
+    if (this.loginForm.valid) {
+      this.authService.login(username, password).subscribe(
+        response => console.log(response),
+        error => {
+          this.loading = false;
+          console.log(error);
+          if (error.code === 'UserNotFoundException') { this.error = 'El usuario no existe'; }
+          if (error.code === 'NotAuthorizedException') { this.error = 'Nombre de usuario o contraseña incorrecto'; }
+          else { this.error = error.message; }
+        }
+      );
     }
-
   }
+
 }

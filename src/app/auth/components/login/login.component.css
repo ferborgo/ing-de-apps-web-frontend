@@ -1,0 +1,25 @@
+.login h1 {
+  text-align: center;
+}
+.login .login-form {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.login .login-form mat-form-field {
+  width: 100%;
+}
+.login .login-form a {
+  color: white;
+}
+.login button {
+  width: 100%;
+  background-color: $green;
+  color: white;
+}
+.login .no-tenes-cuenta {
+  margin-top: 25px;
+  text-align: center;
+}
+.login .no-tenes-cuenta .registrate {
+  color: $green;
+}

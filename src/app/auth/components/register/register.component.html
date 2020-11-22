@@ -1,0 +1,55 @@
+<div class="register">
+    <h1> Creá tu cuenta </h1>
+    <form class="register-form" [formGroup]="registerForm">
+
+        <mat-form-field appearance="outline">
+            <mat-label> Empresa u organización </mat-label>
+            <input matInput formControlName="empresa">
+            <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label> Domicilio </mat-label>
+            <input matInput formControlName="domicilio">
+            <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label> Teléfono </mat-label>
+            <input matInput formControlName="telefono">
+            <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label> Nombre de persona de contacto </mat-label>
+            <input matInput formControlName="nombrePersonaContacto">
+            <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label> Horarios de atención </mat-label>
+            <input matInput formControlName="horarios">
+            <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label> Email </mat-label>
+            <input matInput formControlName="email">
+            <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label> Contraseña </mat-label>
+            <input matInput formControlName="password">
+            <mat-icon matSuffix>vpn_key</mat-icon>
+        </mat-form-field>
+
+        <button mat-button [disabled]="! registerForm.valid">
+            ¡Listo!
+        </button>
+    </form>
+
+    <div class="no-tenes-cuenta">
+        ¿Ya tenés cuenta? <a routerLink="/auth/login" class="login"> Iniciá sesión </a>
+    </div>
+</div>
