@@ -1,4 +1,21 @@
 .register {
+
+  .spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+    .mensaje {
+      color: green;
+      text-align: center;
+    }
+
+    .error {
+      color: red;
+      text-align: center;
+    }
+
     h1 {
         text-align: center;
     }

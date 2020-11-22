@@ -1,6 +1,9 @@
 <div class="register">
     <h1> Creá tu cuenta </h1>
-    <form class="register-form" [formGroup]="registerForm">
+    <p *ngIf="mensaje" class="mensaje"> {{ mensaje }} </p>
+    <p *ngIf="error" class="error"> {{ error }} </p>
+
+    <form class="register-form" [formGroup]="registerForm" *ngIf="! loading ; else cargando">
 
         <mat-form-field appearance="outline">
             <mat-label> Nombre de usuario </mat-label>
@@ -16,11 +19,11 @@
 
         <mat-form-field appearance="outline">
             <mat-label> Contraseña </mat-label>
-            <input matInput formControlName="password">
+            <input type="password" matInput formControlName="password">
             <mat-icon matSuffix>vpn_key</mat-icon>
         </mat-form-field>
 
-        <button mat-button [disabled]="! registerForm.valid">
+        <button mat-button [disabled]="! registerForm.valid" (click)="onSubmit()">
             ¡Listo!
         </button>
     </form>
@@ -28,4 +31,10 @@
     <div class="no-tenes-cuenta">
         ¿Ya tenés cuenta? <a routerLink="/auth/login" class="login"> Iniciá sesión </a>
     </div>
+
+    <ng-template #cargando>
+      <div class="spinner-container">
+        <mat-spinner></mat-spinner>
+      </div>
+    </ng-template>
 </div>

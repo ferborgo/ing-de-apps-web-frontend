@@ -31,7 +31,15 @@ export class AuthService {
         this.router.navigateByUrl('/');
       })
     );
+  }
 
+  signUp(username: string, email: string, password: string) {
+
+    return this.controllerUser.userControllerSignUp({
+      username,
+      email,
+      password
+    });
   }
 
   logout() {

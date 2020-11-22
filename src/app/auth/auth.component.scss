@@ -1,3 +1,5 @@
+@import 'src/styles/colors.scss';
+
 .login {
     width: 100%;
     height: 100vh;
@@ -5,7 +7,7 @@
 
     .login-intro {
         width: 70%;
-        background-color: green;
+        background-color: $green;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -27,5 +29,9 @@
         padding-bottom: 5%;
         max-height: 100vh;
         overflow: auto;
+
+        .volver-button {
+          width: 100%;
+        }
     }
 }
