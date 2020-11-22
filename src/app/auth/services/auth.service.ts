@@ -33,4 +33,9 @@ export class AuthService {
     );
 
   }
+
+  logout() {
+    this.tokenService.signOut();
+    this.router.navigateByUrl('');
+  }
 }

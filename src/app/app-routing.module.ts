@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
 import { AuthGuard } from './auth/guards/auth.guard';
+import { UnauthGuard } from './auth/guards/unauth.guard';
 
 
 const routes: Routes = [
@@ -14,11 +15,12 @@ const routes: Routes = [
     path: 'auth',
     component: AuthComponent,
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
-    // canActivate: [UnauthGuard]
+    canActivate: [UnauthGuard]
   },
   {
     path: '',
-    loadChildren: () => import('./public/public.module').then(m => m.PublicModule)
+    loadChildren: () => import('./public/public.module').then(m => m.PublicModule),
+    canActivate: [UnauthGuard]
   },
   {
     path: '**',

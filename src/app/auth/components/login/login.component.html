@@ -4,8 +4,8 @@
     <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" *ngIf="!loading ; else cargando">
 
         <mat-form-field appearance="outline">
-            <mat-label> Nombre de usuario </mat-label>
-            <input matInput formControlName="username">
+            <mat-label> Email </mat-label>
+            <input matInput formControlName="email">
             <mat-icon matSuffix>person</mat-icon>
         </mat-form-field>
 
@@ -16,7 +16,6 @@
         </mat-form-field>
 
         <button mat-button [disabled]="! loginForm.valid">
-            <!-- <a routerLink="/orders/list"> Login </a> -->
             Login
         </button>
     </form>
