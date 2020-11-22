@@ -7,6 +7,7 @@ import { EventoControllerService } from './api/eventoController.service';
 import { EventoInvitadoControllerService } from './api/eventoInvitadoController.service';
 import { EventoOpcionControllerService } from './api/eventoOpcionController.service';
 import { PingControllerService } from './api/pingController.service';
+import { UserControllerService } from './api/userController.service';
 
 @NgModule({
   imports:      [],

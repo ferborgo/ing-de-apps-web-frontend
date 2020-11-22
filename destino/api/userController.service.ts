@@ -17,10 +17,9 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
-import { Invitado } from '../model/models';
-import { InvitadoPartial } from '../model/models';
-import { LoopbackCount } from '../model/models';
-import { NewInvitadoInEvento } from '../model/models';
+import { InlineObject } from '../model/models';
+import { InlineResponse200 } from '../model/models';
+import { User } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -30,7 +29,7 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-export class EventoInvitadoControllerService {
+export class UserControllerService {
 
     protected basePath = 'http://localhost:3000';
     public defaultHeaders = new HttpHeaders();
@@ -89,17 +88,16 @@ export class EventoInvitadoControllerService {
     }
 
     /**
-     * @param id 
-     * @param newInvitadoInEvento 
+     * @param inlineObject 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public eventoInvitadoControllerCreate(id: string, newInvitadoInEvento?: NewInvitadoInEvento, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Invitado>;
-    public eventoInvitadoControllerCreate(id: string, newInvitadoInEvento?: NewInvitadoInEvento, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Invitado>>;
-    public eventoInvitadoControllerCreate(id: string, newInvitadoInEvento?: NewInvitadoInEvento, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Invitado>>;
-    public eventoInvitadoControllerCreate(id: string, newInvitadoInEvento?: NewInvitadoInEvento, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling eventoInvitadoControllerCreate.');
+    public userControllerLogin(inlineObject: InlineObject, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<InlineResponse200>;
+    public userControllerLogin(inlineObject: InlineObject, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<InlineResponse200>>;
+    public userControllerLogin(inlineObject: InlineObject, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<InlineResponse200>>;
+    public userControllerLogin(inlineObject: InlineObject, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+        if (inlineObject === null || inlineObject === undefined) {
+            throw new Error('Required parameter inlineObject was null or undefined when calling userControllerLogin.');
         }
 
         let headers = this.defaultHeaders;
@@ -138,8 +136,8 @@ export class EventoInvitadoControllerService {
             responseType = 'text';
         }
 
-        return this.httpClient.post<Invitado>(`${this.configuration.basePath}/eventos/${encodeURIComponent(String(id))}/invitados`,
-            newInvitadoInEvento,
+        return this.httpClient.post<InlineResponse200>(`${this.configuration.basePath}/users/login`,
+            inlineObject,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -151,143 +149,14 @@ export class EventoInvitadoControllerService {
     }
 
     /**
-     * @param id 
-     * @param where 
+     * @param requestBody 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public eventoInvitadoControllerDelete(id: string, where?: { [key: string]: object; }, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<LoopbackCount>;
-    public eventoInvitadoControllerDelete(id: string, where?: { [key: string]: object; }, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<LoopbackCount>>;
-    public eventoInvitadoControllerDelete(id: string, where?: { [key: string]: object; }, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<LoopbackCount>>;
-    public eventoInvitadoControllerDelete(id: string, where?: { [key: string]: object; }, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling eventoInvitadoControllerDelete.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (where !== undefined && where !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>where, 'where');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (jwt) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.delete<LoopbackCount>(`${this.configuration.basePath}/eventos/${encodeURIComponent(String(id))}/invitados`,
-            {
-                params: queryParameters,
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * @param id 
-     * @param filter 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public eventoInvitadoControllerFind(id: string, filter?: { [key: string]: object; }, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<Array<Invitado>>;
-    public eventoInvitadoControllerFind(id: string, filter?: { [key: string]: object; }, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<Array<Invitado>>>;
-    public eventoInvitadoControllerFind(id: string, filter?: { [key: string]: object; }, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<Array<Invitado>>>;
-    public eventoInvitadoControllerFind(id: string, filter?: { [key: string]: object; }, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling eventoInvitadoControllerFind.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (filter !== undefined && filter !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>filter, 'filter');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (jwt) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (httpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<Array<Invitado>>(`${this.configuration.basePath}/eventos/${encodeURIComponent(String(id))}/invitados`,
-            {
-                params: queryParameters,
-                responseType: <any>responseType,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * @param id 
-     * @param where 
-     * @param invitadoPartial 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public eventoInvitadoControllerPatch(id: string, where?: { [key: string]: object; }, invitadoPartial?: InvitadoPartial, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<LoopbackCount>;
-    public eventoInvitadoControllerPatch(id: string, where?: { [key: string]: object; }, invitadoPartial?: InvitadoPartial, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<LoopbackCount>>;
-    public eventoInvitadoControllerPatch(id: string, where?: { [key: string]: object; }, invitadoPartial?: InvitadoPartial, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<LoopbackCount>>;
-    public eventoInvitadoControllerPatch(id: string, where?: { [key: string]: object; }, invitadoPartial?: InvitadoPartial, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling eventoInvitadoControllerPatch.');
-        }
-
-        let queryParameters = new HttpParams({encoder: this.encoder});
-        if (where !== undefined && where !== null) {
-          queryParameters = this.addToHttpParams(queryParameters,
-            <any>where, 'where');
-        }
+    public userControllerSignUp(requestBody?: { [key: string]: object; }, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<User>;
+    public userControllerSignUp(requestBody?: { [key: string]: object; }, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<User>>;
+    public userControllerSignUp(requestBody?: { [key: string]: object; }, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<User>>;
+    public userControllerSignUp(requestBody?: { [key: string]: object; }, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -325,10 +194,56 @@ export class EventoInvitadoControllerService {
             responseType = 'text';
         }
 
-        return this.httpClient.patch<LoopbackCount>(`${this.configuration.basePath}/eventos/${encodeURIComponent(String(id))}/invitados`,
-            invitadoPartial,
+        return this.httpClient.post<User>(`${this.configuration.basePath}/signup`,
+            requestBody,
             {
-                params: queryParameters,
+                responseType: <any>responseType,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public userControllerWhoAmI(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<string>;
+    public userControllerWhoAmI(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpResponse<string>>;
+    public userControllerWhoAmI(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json'}): Observable<HttpEvent<string>>;
+    public userControllerWhoAmI(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json'}): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                'application/json'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
+        return this.httpClient.get<string>(`${this.configuration.basePath}/whoAmI`,
+            {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
