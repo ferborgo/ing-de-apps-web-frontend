@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ApiModule } from 'destino';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
+import { TokenService } from './auth/services/token.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { SharedModule } from './shared/shared.module';
     HttpClientModule,
     SharedModule
   ],
-  providers: [],
+  providers: [TokenService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
