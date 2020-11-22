@@ -3,7 +3,7 @@ import { CalendarEvent } from 'angular-calendar';
 import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-calendar',
+  selector: 'app-shared-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
