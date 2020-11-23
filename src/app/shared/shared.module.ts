@@ -15,7 +15,7 @@ import { NombreEventoComponent } from './components/nombre-evento/nombre-evento.
 import { OpcionesEventoComponent } from './components/opciones-evento/opciones-evento.component';
 import { EventoService } from './services/evento.service';
 import { RouterModule } from '@angular/router';
-import { MaterialModule } from '../material/material/material.module';
+import { MaterialModule } from '../material/material.module';
 
 export function momentAdapterFactory() {
   return adapterFactory(moment);

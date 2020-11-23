@@ -10,7 +10,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { EventoDetailComponent } from './pages/evento-detail/evento-detail.component';
 import { SharedModule } from '../shared/shared.module';
-import { MaterialModule } from '../material/material/material.module';
+import { MaterialModule } from '../material/material.module';
 
 @NgModule({
   declarations: [

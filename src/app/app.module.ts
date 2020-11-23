@@ -9,7 +9,7 @@ import { ApiModule } from 'destino';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { TokenService } from './auth/services/token.service';
-import { MaterialModule } from './material/material/material.module';
+import { MaterialModule } from './material/material.module';
 import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
