@@ -39,6 +39,12 @@ export class EventoService {
     return this.invitados;
   }
 
+  resetAll(): void {
+    this.datosGenerales = { nombre: '' };
+    this.invitados = [];
+    this.opciones = [];
+  }
+
   example() {
     this.eventoController.eventoControllerFind().subscribe(
       response => console.log(response),

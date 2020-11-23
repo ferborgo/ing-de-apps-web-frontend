@@ -1,21 +1,27 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { EventoService } from '../../services/evento.service';
 
 @Component({
   selector: 'app-confirmacion-evento',
   templateUrl: './confirmacion-evento.component.html',
   styleUrls: ['./confirmacion-evento.component.scss']
 })
-export class ConfirmacionEventoComponent implements OnInit {
+export class ConfirmacionEventoComponent implements OnInit, OnDestroy {
 
   @Output() siguiente = new EventEmitter<string>();
 
-  constructor() { }
+  constructor(
+    private eventoService: EventoService
+  ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   onVolver(): void {
     this.siguiente.emit('nombre');
+  }
+
+  ngOnDestroy(): void {
+    this.eventoService.resetAll();
   }
 
 }
