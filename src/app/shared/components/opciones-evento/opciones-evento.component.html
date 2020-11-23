@@ -1,7 +1,7 @@
 <div class="opciones-evento">
   <h2> Calendario </h2>
 
-  <app-shared-calendar></app-shared-calendar>
+  <app-shared-calendar [eventosCache]="opciones"></app-shared-calendar>
 
   <button mat-button (click)="onAnterior()"> Anterior </button>
   <button mat-button (click)="onSiguiente()"> Siguiente </button>

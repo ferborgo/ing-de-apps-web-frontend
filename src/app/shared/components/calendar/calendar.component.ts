@@ -1,27 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { CalendarEvent } from 'angular-calendar';
 import { Subject } from 'rxjs';
+import { EventoService } from '../../services/evento.service';
 
 @Component({
   selector: 'app-shared-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit, OnDestroy {
+
+  @Input() eventosCache: CalendarEvent[];
 
   forRefresh: Subject<any> = new Subject();
   viewDate: Date = new Date();
 
   // https://github.com/mattlewis92/calendar-utils/blob/c51689985f59a271940e30bc4e2c4e1fee3fcb5c/src/calendarUtils.ts#L49-L63
   // https://angular-calendar.com/docs/components/CalendarWeekViewComponent.html#tooltipTemplate
-  events: CalendarEvent[] = [
-    this.createEvent(1, new Date(2020, 8, 10, 15, 0), new Date(2020, 8, 10, 17, 0)),
-    this.createEvent(2, new Date(2020, 8, 11, 8, 0), new Date(2020, 8, 11, 17, 0))
-  ];
+  events: CalendarEvent[];
 
-  constructor() { }
+  constructor(
+    private eventoService: EventoService
+  ) { }
 
   ngOnInit() {
+    this.events = this.eventosCache;
   }
 
   onHourSegmentClick(event) {
@@ -59,8 +62,16 @@ export class CalendarComponent implements OnInit {
   }
 
   private nextID(): number {
+    if (! this.events || this.events.length === 0) {
+      return 1;
+    }
     const ids = this.events.map(event => Number(event.id));
     return Math.max(...ids) + 1;
+  }
+
+
+  ngOnDestroy() {
+    this.eventoService.setOpciones(this.events);
   }
 
 }

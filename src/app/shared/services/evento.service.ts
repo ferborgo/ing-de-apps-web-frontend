@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CalendarEvent } from 'angular-calendar';
 import { EventoControllerService } from 'destino';
 import { IDatosGenerales } from '../interfaces/datos.generales.interface';
 
@@ -6,6 +7,7 @@ import { IDatosGenerales } from '../interfaces/datos.generales.interface';
 export class EventoService {
 
   private datosGenerales: IDatosGenerales = { nombre: '' };
+  private opciones: CalendarEvent[] = [];
 
   constructor(
     private eventoController: EventoControllerService
@@ -15,8 +17,16 @@ export class EventoService {
     this.datosGenerales = datos;
   }
 
+  setOpciones(opciones: CalendarEvent[]): void {
+    this.opciones = opciones;
+  }
+
   getDatosGenerales(): IDatosGenerales {
     return this.datosGenerales;
+  }
+
+  getOpciones(): CalendarEvent[] {
+    return this.opciones;
   }
 
   example() {

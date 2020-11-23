@@ -1,4 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { CalendarEvent } from 'angular-calendar';
+import { IOpcion } from '../../interfaces/opcion.interface';
+import { EventoService } from '../../services/evento.service';
 
 @Component({
   selector: 'app-opciones-evento',
@@ -8,10 +11,14 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class OpcionesEventoComponent implements OnInit {
 
   @Output() siguiente = new EventEmitter<string>();
+  opciones: CalendarEvent[];
 
-  constructor() { }
+  constructor(
+    private eventoService: EventoService
+  ) { }
 
   ngOnInit() {
+    this.opciones = this.eventoService.getOpciones();
   }
 
   onSiguiente(): void {
@@ -21,5 +28,6 @@ export class OpcionesEventoComponent implements OnInit {
   onAnterior(): void {
     this.siguiente.emit('nombre');
   }
+
 
 }
