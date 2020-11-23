@@ -20,9 +20,15 @@
   </form>
 
   <h4> Y ahora los invitados </h4>
-  <div *ngFor="let invitado of invitados">
-    Nombre: {{ invitado.nombre }}
-    Email: {{ invitado.email }}
+
+  <div *ngFor="let control of controls">
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label> Nombre </mat-label>
+        <input matInput type="text" [formControl]="control">
+      </mat-form-field>
+      <mat-icon (click)="removeControl(control)"> clear </mat-icon>
+    </div>
   </div>
 
   <button mat-button (click)="agregarOtro()"> Agregar otro </button>
