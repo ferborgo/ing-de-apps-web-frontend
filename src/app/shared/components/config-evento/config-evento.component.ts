@@ -1,4 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { EventoService } from '../../services/evento.service';
 
 @Component({
   selector: 'app-config-evento',
@@ -9,13 +11,31 @@ export class ConfigEventoComponent implements OnInit {
 
   @Output() siguiente = new EventEmitter<string>();
 
-  constructor() { }
+  password = new FormControl('');
+  loading = false;
+
+  constructor(
+    private eventoService: EventoService
+  ) { }
 
   ngOnInit() {
   }
 
   onSiguiente(): void {
-    this.siguiente.emit('confirmacion');
+    this.loading = true;
+    this.eventoService.finalizar()
+      .then(
+        response => {
+          this.loading = false;
+          this.siguiente.emit('confirmacion');
+        }
+      )
+      .catch(
+        error => {
+          console.log('Error: ', error);
+          this.loading = false;
+        }
+      );
   }
 
   onAnterior(): void {

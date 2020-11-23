@@ -2,6 +2,13 @@
   margin-right: 20px;
   margin-left: 20px;
   .config-list {
+
+    .password {
+      mat-form-field {
+        width: 40%;
+      }
+    }
+
     .config-item {
       display: flex;
       align-items: center;

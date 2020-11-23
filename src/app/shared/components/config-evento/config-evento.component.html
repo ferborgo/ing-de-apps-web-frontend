@@ -1,4 +1,4 @@
-<div class="config-evento">
+<div class="config-evento" *ngIf="! loading ; else cargando">
   <h2> Configure su evento </h2>
 
   <div class="config-list">
@@ -38,9 +38,20 @@
         </div>
       </div>
     </div>
+
+    <div class="config-item password">
+      <mat-form-field>
+        <mat-label> Contraseña del evento </mat-label>
+        <input type="password" matInput [formControl]="password">
+      </mat-form-field>
+    </div>
   </div>
 
 
   <button mat-button (click)="onAnterior()"> Anterior </button>
   <button mat-button (click)="onSiguiente()"> Finalizar </button>
 </div>
+
+<ng-template #cargando>
+  <mat-spinner></mat-spinner>
+</ng-template>

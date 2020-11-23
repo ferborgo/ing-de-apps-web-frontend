@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CalendarEvent } from 'angular-calendar';
-import { EventoControllerService } from 'destino';
+import { EventoControllerService, EventoInvitadoControllerService, EventoOpcionControllerService, NewInvitadoInEvento, NewOpcionInEvento } from 'destino';
 import { IDatosGenerales } from '../interfaces/datos.generales.interface';
 import { IInvitado } from '../interfaces/invitado.interface';
 
@@ -12,8 +12,49 @@ export class EventoService {
   private invitados: IInvitado[] = [];
 
   constructor(
-    private eventoController: EventoControllerService
+    private eventoController: EventoControllerService,
+    private eventopOpcionController: EventoOpcionControllerService,
+    private eventoInvitadoController: EventoInvitadoControllerService
   ) { }
+
+  async finalizar() {
+
+    const nuevoEvento = {
+      nombre: this.datosGenerales.nombre,
+      descripcion: this.datosGenerales.descripcion,
+      password: '123123'
+    };
+    const response = await this.eventoController.eventoControllerCreate(nuevoEvento).pipe().toPromise();
+    const nuevoEventoID = response.id;
+    console.log('Nuevo eventod ID: ', nuevoEventoID);
+    this.opciones.forEach(async opcion => {
+
+      // tslint:disable-next-line: prefer-const
+      let nuevaOpcion: NewOpcionInEvento = {
+        fechaInicio: opcion.start.toISOString(),
+        fechaFinal: opcion.end.toISOString()
+      };
+      await this.eventopOpcionController.eventoOpcionControllerCreate(nuevoEventoID, nuevaOpcion).pipe().toPromise();
+    });
+
+    const creador: NewInvitadoInEvento = {
+      creador: true,
+      nombre: 'Fernando'
+    };
+    await this.eventoInvitadoController.eventoInvitadoControllerCreate(nuevoEventoID, creador).pipe().toPromise();
+
+    this.invitados.forEach(async invitado => {
+
+      // tslint:disable-next-line: prefer-const
+      let nuevoInvitado: NewInvitadoInEvento = {
+        creador: false,
+        nombre: invitado.nombre
+      };
+      await this.eventoInvitadoController.eventoInvitadoControllerCreate(nuevoEventoID, nuevoInvitado).pipe().toPromise();
+    });
+
+    console.log('Todo terminado...');
+  }
 
   setDatosGenerales(datos: IDatosGenerales): void {
     this.datosGenerales = datos;
