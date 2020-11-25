@@ -1,11 +1,20 @@
 <div class="calendar-container">
+
+  <div class="button-container">
+    <button mat-button *ngIf="eventoSeleccionado" (click)="onBorrarEvento()">
+      ¿Eliminar opción {{ eventoSeleccionado.id }} ?
+    </button>
+  </div>
+
   <mwl-calendar-week-view
+  mwlDraggable
   [viewDate]="viewDate"
   [events]="events"
   [refresh]="forRefresh"
   [dayStartHour]="7"
   (hourSegmentClicked)="onHourSegmentClick($event)"
   (eventTimesChanged)="onEventTimeChange($event)"
+  (eventClicked)="onEventoClick($event)"
   >
   </mwl-calendar-week-view>
 </div>

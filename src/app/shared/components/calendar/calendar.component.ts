@@ -3,12 +3,24 @@ import { CalendarEvent } from 'angular-calendar';
 import { Subject } from 'rxjs';
 import { EventoService } from '../../services/evento.service';
 
+export enum days {
+  'Domingo',
+  'Lunes',
+  'Martes',
+  'Miércoles',
+  'Jueves',
+  'Viernes',
+  'Sábado'
+}
+
 @Component({
   selector: 'app-shared-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent implements OnInit, OnDestroy {
+
+
 
   @Input() eventosCache: CalendarEvent[];
 
@@ -19,12 +31,36 @@ export class CalendarComponent implements OnInit, OnDestroy {
   // https://angular-calendar.com/docs/components/CalendarWeekViewComponent.html#tooltipTemplate
   events: CalendarEvent[];
 
+  eventoSeleccionado: CalendarEvent;
+
   constructor(
     private eventoService: EventoService
   ) { }
 
   ngOnInit() {
     this.events = this.eventosCache;
+  }
+
+  onEventoClick(event) {
+    if (this.eventoSeleccionado === event.event) {
+      this.eventoSeleccionado = null;
+    } else {
+      this.eventoSeleccionado = event.event;
+    }
+  }
+
+  onBorrarEvento() {
+    const event = this.eventoSeleccionado;
+    const index = this.events.findIndex(each => Number(each.id) === Number(event.id));
+    this.events.splice(index, 1);
+    this.events.forEach(each => {
+      if (each.id >= event.id) {
+        each.id = Number(each.id) - 1;
+      }
+    });
+    console.log(this.events);
+    this.forRefresh.next();
+    this.eventoSeleccionado = null;
   }
 
   onHourSegmentClick(event) {
@@ -39,15 +75,17 @@ export class CalendarComponent implements OnInit, OnDestroy {
     const evento = this.events.find(each => Number(each.id) === Number(event.event.id));
     evento.start = event.newStart;
     evento.end = event.newEnd;
+    evento.title = this.generarTitulo(evento.start, evento.end);
     this.forRefresh.next();
   }
 
   private createEvent(id: number, start: Date, end: Date): CalendarEvent {
+    const titulo = this.generarTitulo(start, end);
     return {
       id,
       start,
       end,
-      title: `Opción ${id}`,
+      title: `${titulo}`,
       draggable: true,
       resizable: {
         beforeStart: true,
@@ -72,6 +110,23 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.eventoService.setOpciones(this.events);
+  }
+
+  private generarTitulo(start: Date, end: Date): string {
+    const dia = this.getDay(start.getDay());
+    return `${dia} de ${start.getHours()}${this.getMinutes(start)} a ${end.getHours()}${this.getMinutes(end)}`;
+  }
+
+  private getDay(num: number): string {
+    return days[num];
+  }
+
+  private getMinutes(date: Date): string {
+    const minutes = date.getMinutes();
+    if (minutes === 0) {
+      return '';
+    }
+    return `:${minutes.toString()}`;
   }
 
 }
