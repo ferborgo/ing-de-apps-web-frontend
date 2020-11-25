@@ -92,7 +92,7 @@ export class EventoControllerService {
     }
 
     /**
-     * @param where 
+     * @param where
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -147,7 +147,7 @@ export class EventoControllerService {
     }
 
     /**
-     * @param newEvento 
+     * @param newEvento
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -205,7 +205,7 @@ export class EventoControllerService {
     }
 
     /**
-     * @param id 
+     * @param id
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -255,8 +255,8 @@ export class EventoControllerService {
     }
 
     /**
-     * @param id 
-     * @param body 
+     * @param id
+     * @param body
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -316,7 +316,7 @@ export class EventoControllerService {
     }
 
     /**
-     * @param filter 
+     * @param filter
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -371,8 +371,8 @@ export class EventoControllerService {
     }
 
     /**
-     * @param id 
-     * @param filter 
+     * @param id
+     * @param filter
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -383,11 +383,10 @@ export class EventoControllerService {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling eventoControllerFindById.');
         }
-
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (filter !== undefined && filter !== null) {
           queryParameters = this.addToHttpParams(queryParameters,
-            <any>filter, 'filter');
+            JSON.stringify(filter), 'filter');
         }
 
         let headers = this.defaultHeaders;
@@ -430,8 +429,8 @@ export class EventoControllerService {
     }
 
     /**
-     * @param id 
-     * @param evento 
+     * @param id
+     * @param evento
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -491,8 +490,8 @@ export class EventoControllerService {
     }
 
     /**
-     * @param where 
-     * @param eventoPartial 
+     * @param where
+     * @param eventoPartial
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -557,8 +556,8 @@ export class EventoControllerService {
     }
 
     /**
-     * @param id 
-     * @param eventoPartial 
+     * @param id
+     * @param eventoPartial
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */

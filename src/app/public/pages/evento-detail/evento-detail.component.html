@@ -1,10 +1,37 @@
 <div class="evento-detail" *ngIf="evento ; else cargando">
-  <h1> {{ evento.nombre }} </h1>
-  <h4> Creado por {{ creador }} el día tal</h4>
+  <h1 class="center"> {{ evento.nombre }} </h1>
+  <h4 *ngIf="creador"> Creado por {{ creador }} el día tal</h4>
 
   <p>
     {{ evento.descripcion }}
   </p>
+
+  <mat-form-field appearance="outline">
+    <mat-label> Contraseña </mat-label>
+    <input matInput type="password" [formControl]="passwordInput">
+  </mat-form-field>
+  <button mat-button (click)="verificar()"> Verificar </button>
+
+  <p *ngIf="error">
+    Error: {{ error }}
+  </p>
+</div>
+
+
+<div *ngIf="autenticado">
+  <h4> Invitados: </h4>
+  <ul>
+    <li *ngFor="let invitado of evento.invitados">
+      {{ invitado.nombre }}
+    </li>
+  </ul>
+
+  <h4> Opciones: </h4>
+  <ul>
+    <li *ngFor="let opcion of evento.opciones">
+      {{ opcion.fechaInicio }} hasta {{ opcion.fechaFinal }}
+    </li>
+  </ul>
 </div>
 
 <ng-template #cargando>

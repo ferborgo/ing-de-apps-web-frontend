@@ -10,6 +10,8 @@ export class EventoService {
   private datosGenerales: IDatosGenerales = { nombre: '' };
   private opciones: CalendarEvent[] = [];
   private invitados: IInvitado[] = [];
+  private nuevoEventoID: string;
+  private password = '123123';
 
   constructor(
     private eventoController: EventoControllerService,
@@ -22,10 +24,11 @@ export class EventoService {
     const nuevoEvento = {
       nombre: this.datosGenerales.nombre,
       descripcion: this.datosGenerales.descripcion,
-      password: '123123'
+      password: this.password
     };
     const response = await this.eventoController.eventoControllerCreate(nuevoEvento).pipe().toPromise();
     const nuevoEventoID = response.id;
+    this.nuevoEventoID = response.id;
     console.log('Nuevo eventod ID: ', nuevoEventoID);
     this.opciones.forEach(async opcion => {
 
@@ -54,6 +57,14 @@ export class EventoService {
     });
 
     console.log('Todo terminado...');
+  }
+
+  getNuevoEventoID(): string {
+    return this.nuevoEventoID;
+  }
+
+  getPassword(): string {
+    return this.password;
   }
 
   setDatosGenerales(datos: IDatosGenerales): void {

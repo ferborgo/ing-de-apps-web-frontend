@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { EventoControllerService, EventoFilter, EventoWithRelations, InvitadoWithRelations } from 'destino';
 
@@ -11,8 +12,10 @@ export class EventoDetailComponent implements OnInit {
 
   id: string;
   evento: EventoWithRelations;
-
   creador: string;
+  passwordInput = new FormControl('', Validators.required);
+  error;
+  autenticado = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,24 +24,23 @@ export class EventoDetailComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.params.id;
-    const filter: EventoFilter = {
-      fields: {
-        id: true,
-        nombre: true,
-        descripcion: true,
-        password: false
-      },
-      include: [
-        {
-          relation: 'invitados'
-        }
-      ]
-    };
-    this.eventoController.eventoControllerFindById(this.id, filter)
+    this.getEvento(this.id);
+  }
+
+  verificar(): void {
+    this.error = null;
+    const password = this.passwordInput.value;
+    console.log(password);
+    this.eventoController.eventoControllerEventoAuth(this.id, { password })
       .subscribe(
         response => {
-          this.evento = response;
-          this.creador = this.getNombreCreador(response.invitados);
+          console.log(response);
+          this.getEvento(this.id, true);
+          this.autenticado = true;
+        },
+        error => {
+          console.log(error);
+          this.error = error.error.error.message;
         }
       );
   }
@@ -46,6 +48,37 @@ export class EventoDetailComponent implements OnInit {
   private getNombreCreador(invitados: InvitadoWithRelations[]): string {
     const creador = invitados.find(invitado => invitado.creador);
     return creador.nombre;
+  }
+
+  private getEvento(id: string, includeRelations: boolean = false) {
+    const filter: EventoFilter = {
+      fields: {
+        id: true,
+        nombre: true,
+        descripcion: true,
+        password: false
+      }
+    };
+
+    if (includeRelations) {
+      filter.include = [
+        {
+          relation: 'invitados'
+        },
+        {
+          relation: 'opciones'
+        }
+      ];
+    }
+    this.eventoController.eventoControllerFindById(id, filter)
+      .subscribe(
+        response => {
+          this.evento = response;
+          if (includeRelations) {
+            this.creador = this.getNombreCreador(response.invitados);
+          }
+        }
+      );
   }
 
 }
