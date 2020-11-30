@@ -16,7 +16,8 @@
  */
 export interface NewEvento { 
     nombre: string;
-    descripcion: string;
+    descripcion?: string;
     password: string;
+    usuarioCreadorID?: string;
 }
 

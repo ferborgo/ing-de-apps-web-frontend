@@ -1,0 +1,1 @@
+openapi-generator-cli generate -g typescript-angular -i http://localhost:3000/openapi.json -o destino

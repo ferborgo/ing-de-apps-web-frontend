@@ -14,7 +14,8 @@
 export interface Evento { 
     id?: string;
     nombre: string;
-    descripcion: string;
+    descripcion?: string;
     password: string;
+    usuarioCreadorID?: string;
 }
 

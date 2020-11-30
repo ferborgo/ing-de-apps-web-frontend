@@ -7,8 +7,6 @@ import { IUser } from './auth.service';
 })
 export class TokenService {
 
-  private user: IUser;
-
   constructor() { }
 
   signOut(): void {
@@ -23,7 +21,6 @@ export class TokenService {
 
     const email = decoded.email;
     const username = decoded.name;
-    this.user = { email, username };
 
     localStorage.setItem('email', email);
     localStorage.setItem('username', username);
@@ -34,7 +31,11 @@ export class TokenService {
   }
 
   getUser(): IUser {
-    return this.user;
+    const user: IUser = {
+      email: localStorage.getItem('email'),
+      username: localStorage.getItem('username')
+    };
+    return user;
   }
 
 }

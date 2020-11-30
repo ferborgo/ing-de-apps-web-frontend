@@ -16,5 +16,6 @@ export interface EventoFields {
     nombre?: boolean;
     descripcion?: boolean;
     password?: boolean;
+    usuarioCreadorID?: boolean;
 }
 

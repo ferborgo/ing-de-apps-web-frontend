@@ -19,5 +19,6 @@ export interface EventoPartial {
     nombre?: string;
     descripcion?: string;
     password?: string;
+    usuarioCreadorID?: string;
 }
 

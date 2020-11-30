@@ -19,8 +19,9 @@ import { OpcionWithRelations } from './opcionWithRelations';
 export interface EventoWithRelations { 
     id?: string;
     nombre: string;
-    descripcion: string;
+    descripcion?: string;
     password: string;
+    usuarioCreadorID?: string;
     opciones?: Array<OpcionWithRelations>;
     invitados?: Array<InvitadoWithRelations>;
 }

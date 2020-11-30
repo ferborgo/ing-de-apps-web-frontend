@@ -24,10 +24,6 @@ export class ConfirmacionEventoComponent implements OnInit, OnDestroy {
     this.password = this.eventoService.getPassword();
   }
 
-  onURLClick(): void {
-    this.router.navigateByUrl(this.armarURL());
-  }
-
   onVolver(): void {
     this.siguiente.emit('nombre');
   }
