@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EventoControllerService, EventoFilter, EventoWithRelations, InvitadoWithRelations } from 'destino';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-evento-detail',
@@ -16,15 +17,19 @@ export class EventoDetailComponent implements OnInit {
   passwordInput = new FormControl('', Validators.required);
   error;
   autenticado = false;
+  isLoggedIn: boolean;
 
   constructor(
     private route: ActivatedRoute,
-    private eventoController: EventoControllerService
+    private eventoController: EventoControllerService,
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.params.id;
     this.getEvento(this.id);
+    this.isLoggedIn = this.authService.isLoggedIn();
   }
 
   verificar(): void {
@@ -43,6 +48,14 @@ export class EventoDetailComponent implements OnInit {
           this.error = error.error.error.message;
         }
       );
+  }
+
+  onCerrarSesion(): void {
+    this.authService.logout();
+  }
+
+  onIniciarSesion(): void {
+    this.router.navigateByUrl('/auth/login');
   }
 
   private getNombreCreador(invitados: InvitadoWithRelations[]): string {

@@ -1,4 +1,15 @@
 <div class="evento-detail" *ngIf="evento ; else cargando">
+
+  <nav class="navbar">
+    <div class="producto">
+      Meeting-O-Matic
+    </div>
+    <div class="boton">
+      <button *ngIf="isLoggedIn" mat-button (click)="onCerrarSesion()"> Cerrar sesión </button>
+      <button *ngIf="!isLoggedIn" mat-button (click)="onIniciarSesion()"> Iniciar sesión </button>
+    </div>
+  </nav>
+
   <h1 class="center"> {{ evento.nombre }} </h1>
   <h4 *ngIf="creador"> Creado por {{ creador }} el día tal</h4>
 
@@ -19,19 +30,27 @@
 
 
 <div *ngIf="autenticado">
-  <h4> Invitados: </h4>
-  <ul>
-    <li *ngFor="let invitado of evento.invitados">
-      {{ invitado.nombre }}
-    </li>
-  </ul>
+
+  <h4> ¿Quién es usted? </h4>
+  <mat-form-field appearance="fill">
+    <mat-label> Invitados </mat-label>
+    <mat-select>
+      <mat-option *ngFor="let invitado of evento.invitados" [value]="invitado.id">
+        {{ invitado.nombre }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
   <h4> Opciones: </h4>
-  <ul>
-    <li *ngFor="let opcion of evento.opciones">
-      {{ opcion.fechaInicio }} hasta {{ opcion.fechaFinal }}
-    </li>
-  </ul>
+
+  <div *ngFor="let opcion of evento.opciones">
+    <div>
+      {{ opcion.fechaInicio | date:'d MMM, h:mm a' }} hasta  {{ opcion.fechaFinal | date:'h:mm a' }}
+      <mat-slide-toggle></mat-slide-toggle>
+    </div>
+
+  </div>
+
 </div>
 
 <ng-template #cargando>

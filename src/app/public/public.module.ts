@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { PublicRoutingModule } from './public-routing.module';
 import { NuevoEventoComponent } from './pages/nuevo-evento/nuevo-evento.component';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -24,6 +24,8 @@ import { MaterialModule } from '../material/material.module';
     SharedModule,
     MaterialModule
   ],
-  providers: []
+  providers: [
+    DatePipe
+  ]
 })
 export class PublicModule { }

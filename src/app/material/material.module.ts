@@ -5,7 +5,7 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatSlideToggleModule,
-  MatButtonModule, MatIconModule, MatProgressSpinnerModule, MatCardModule
+  MatButtonModule, MatIconModule, MatProgressSpinnerModule, MatCardModule, MatSelectModule, MatGridListModule
 } from '@angular/material';
 
 const modules = [
@@ -16,7 +16,9 @@ const modules = [
   MatButtonModule,
   MatIconModule,
   MatProgressSpinnerModule,
-  MatCardModule
+  MatCardModule,
+  MatSelectModule,
+  MatGridListModule
 ];
 
 @NgModule({

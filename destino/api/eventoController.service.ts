@@ -387,7 +387,7 @@ export class EventoControllerService {
         let queryParameters = new HttpParams({encoder: this.encoder});
         if (filter !== undefined && filter !== null) {
           queryParameters = this.addToHttpParams(queryParameters,
-            <any>filter, 'filter');
+            JSON.stringify(filter), 'filter');
         }
 
         let headers = this.defaultHeaders;
