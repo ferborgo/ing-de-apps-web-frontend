@@ -21,7 +21,7 @@ export class ConfirmacionEventoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.url = this.armarURL();
-    this.password = this.eventoService.getPassword();
+    this.password = this.eventoService.getConfig().password;
   }
 
   onVolver(): void {

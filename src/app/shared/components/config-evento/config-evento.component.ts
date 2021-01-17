@@ -23,6 +23,7 @@ export class ConfigEventoComponent implements OnInit {
 
   onSiguiente(): void {
     this.loading = true;
+    this.eventoService.setConfig({password: this.password.value});
     this.eventoService.finalizar()
       .then(
         response => {

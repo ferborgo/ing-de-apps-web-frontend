@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CalendarEvent } from 'angular-calendar';
 import { EventoControllerService, EventoInvitadoControllerService, EventoOpcionControllerService, NewInvitadoInEvento, NewOpcionInEvento } from 'destino';
+import { IConfig } from '../interfaces/config.interface';
 import { IDatosGenerales } from '../interfaces/datos.generales.interface';
 import { IInvitado } from '../interfaces/invitado.interface';
 
@@ -11,7 +12,7 @@ export class EventoService {
   private opciones: CalendarEvent[] = [];
   private invitados: IInvitado[] = [];
   private nuevoEventoID: string;
-  private password = '123123';
+  private config: IConfig;
 
   constructor(
     private eventoController: EventoControllerService,
@@ -24,7 +25,7 @@ export class EventoService {
     const nuevoEvento = {
       nombre: this.datosGenerales.nombre,
       descripcion: this.datosGenerales.descripcion,
-      password: this.password
+      password: this.getConfig().password
     };
     const response = await this.eventoController.eventoControllerCreate(nuevoEvento).pipe().toPromise();
     const nuevoEventoID = response.id;
@@ -59,12 +60,16 @@ export class EventoService {
     console.log('Todo terminado...');
   }
 
-  getNuevoEventoID(): string {
-    return this.nuevoEventoID;
+  setConfig(aConfig: IConfig): void {
+    this.config = aConfig;
   }
 
-  getPassword(): string {
-    return this.password;
+  getConfig(): IConfig {
+    return this.config;
+  }
+
+  getNuevoEventoID(): string {
+    return this.nuevoEventoID;
   }
 
   setDatosGenerales(datos: IDatosGenerales): void {
