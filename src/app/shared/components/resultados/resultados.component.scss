@@ -1,0 +1,14 @@
+.resultados {
+
+  .resultados-container {
+    margin-right: 5px;
+    margin-left: 5px;
+
+    .mat-grid-tile {
+      border: 1px solid black;
+    }
+    .total {
+      background-color: lightblue;
+    }
+  }
+}

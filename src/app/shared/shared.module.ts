@@ -16,6 +16,7 @@ import { OpcionesEventoComponent } from './components/opciones-evento/opciones-e
 import { EventoService } from './services/evento.service';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../material/material.module';
+import { ResultadosComponent } from './components/resultados/resultados.component';
 
 export function momentAdapterFactory() {
   return adapterFactory(moment);
@@ -32,6 +33,7 @@ export function momentAdapterFactory() {
     InvitadosEventoComponent,
     ConfigEventoComponent,
     ConfirmacionEventoComponent,
+    ResultadosComponent,
   ],
   imports: [
     CommonModule,
@@ -45,7 +47,8 @@ export function momentAdapterFactory() {
   ],
   exports: [
     CalendarComponent,
-    NuevoEventoComponent
+    NuevoEventoComponent,
+    ResultadosComponent
   ]
 })
 export class SharedModule { }

@@ -60,26 +60,13 @@ export class EventoDetailComponent implements OnInit {
     this.router.navigateByUrl('/auth/login');
   }
 
-  invitadoVotoOpcion(invitado, opcion): boolean {
-    if (! invitado.opcionElegidas) return false;
-    else {
-      return invitado.opcionElegidas.some(opcionElegida => opcionElegida.opcionId == opcion.id)
-    }
-  }
-
-  votosTotales(opcion): number {
-    let cant = 0;
-    this.evento.invitados.forEach(invitado => {
-      if (invitado.opcionElegidas && invitado.opcionElegidas.some(a => a.opcionId == opcion.id)) {
-        cant = cant + 1;
-      }
-    });
-    return cant;
-  }
-
   private getNombreCreador(invitados: InvitadoWithRelations[]): string {
     const creador = invitados.find(invitado => invitado.creador);
     return creador.nombre;
+  }
+
+  private getInvitadosQueNoVotaron(invitados: any[]): IInvitado[] {
+    return invitados.filter(invitado => !invitado.opcionElegidas);
   }
 
   private getEvento(id: string, includeRelations: boolean = false) {
@@ -123,8 +110,6 @@ export class EventoDetailComponent implements OnInit {
       );
   }
 
-  private getInvitadosQueNoVotaron(invitados: any[]): IInvitado[] {
-    return invitados.filter(invitado => !invitado.opcionElegidas);
-  }
+
 
 }
