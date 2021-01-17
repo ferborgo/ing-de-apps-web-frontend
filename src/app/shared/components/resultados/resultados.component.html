@@ -2,7 +2,7 @@
   <div *ngIf="evento" class="resultados-container">
 
     <h4> Resultados </h4>
-    <mat-grid-list cols="{{ evento.opciones.length + 1 }}" rowHeight="50px">
+    <mat-grid-list *ngIf="evento.opciones" cols="{{ evento.opciones.length + 1 }}" rowHeight="50px">
 
       <!-- Columnas -->
       <mat-grid-tile> - </mat-grid-tile>

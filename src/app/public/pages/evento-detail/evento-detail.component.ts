@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EventoControllerService, EventoFilter, EventoScopeFilter, EventoWithRelations, InvitadoWithRelations } from 'destino';
+import { EventoControllerService, EventoFilter, EventoScopeFilter, EventoWithRelations, InvitadoWithRelations, OpcionElegidaControllerService } from 'destino';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { IInvitado } from 'src/app/shared/interfaces/invitado.interface';
 
@@ -20,12 +20,16 @@ export class EventoDetailComponent implements OnInit {
   autenticado = false;
   isLoggedIn: boolean;
   invitadosSinVotar: any[];
+  invitadoSeleccionado = new FormControl();
+  slidesForm: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
     private eventoController: EventoControllerService,
+    private opcionElegidaController: OpcionElegidaControllerService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
@@ -104,12 +108,28 @@ export class EventoDetailComponent implements OnInit {
           this.evento = response;
           if (includeRelations) {
             this.creador = this.getNombreCreador(response.invitados);
+            this.invitadosSinVotar = this.getInvitadosQueNoVotaron(this.evento.invitados);
+            let slides = {};
+            this.evento.opciones.forEach(opcion => {
+              slides[opcion.id] = ''
+            })
+            this.slidesForm = this.formBuilder.group(slides);
           }
-          this.invitadosSinVotar = this.getInvitadosQueNoVotaron(this.evento.invitados);
         }
       );
   }
 
+  onVotar() {
 
+    const opcionesElegidas = Object.entries(this.slidesForm.controls).filter(entry => entry[1].value).map(entry => entry[0]);
+    opcionesElegidas.forEach(async opcionId => {
+      await this.opcionElegidaController.opcionElegidaControllerCreate({
+        invitadoId: this.invitadoSeleccionado.value,
+        opcionId: opcionId
+      }).toPromise();
+    });
+    console.log('Se terminaron todas. Recargar')
+
+  }
 
 }

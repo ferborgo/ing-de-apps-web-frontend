@@ -34,7 +34,7 @@
   <h4> ¿Quién es usted? </h4>
   <mat-form-field appearance="fill">
     <mat-label> Invitados </mat-label>
-    <mat-select>
+    <mat-select [formControl]="invitadoSeleccionado">
       <mat-option *ngFor="let invitado of invitadosSinVotar" [value]="invitado.id">
         {{ invitado.nombre }}
       </mat-option>
@@ -43,13 +43,17 @@
 
   <h4> Opciones: </h4>
 
-  <div *ngFor="let opcion of evento.opciones">
-    <div>
-      {{ opcion.fechaInicio | date:'d MMM, h:mm a' }} hasta {{ opcion.fechaFinal | date:'h:mm a' }}
-      <mat-slide-toggle></mat-slide-toggle>
-    </div>
+  <form *ngIf="slidesForm" class="example-form" [formGroup]="slidesForm" (ngSubmit)="onVotar()" ngNativeValidate>
+    <div *ngFor="let opcion of evento.opciones">
 
-  </div>
+      <div>
+        {{ opcion.fechaInicio | date:'d MMM, h:mm a' }} hasta {{ opcion.fechaFinal | date:'h:mm a' }}
+        <mat-slide-toggle formControlName="{{opcion.id}}"></mat-slide-toggle>
+      </div>
+
+    </div>
+    <button *ngIf="invitadoSeleccionado.value" mat-raised-button type="submit"> Guardar elección </button>
+  </form>
 
   <hr>
 
