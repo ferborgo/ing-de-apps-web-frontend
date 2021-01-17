@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { OpcionElegidaWithRelations } from './opcionElegidaWithRelations';
 
 
 /**
@@ -20,5 +21,6 @@ export interface InvitadoWithRelations {
     email?: string;
     creador: boolean;
     eventoId?: string;
+    opcionElegidas?: Array<OpcionElegidaWithRelations>;
 }
 

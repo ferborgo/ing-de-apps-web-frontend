@@ -6,6 +6,10 @@ import { HttpClient } from '@angular/common/http';
 import { EventoControllerService } from './api/eventoController.service';
 import { EventoInvitadoControllerService } from './api/eventoInvitadoController.service';
 import { EventoOpcionControllerService } from './api/eventoOpcionController.service';
+import { InvitadoOpcionControllerService } from './api/invitadoOpcionController.service';
+import { InvitadoOpcionElegidaControllerService } from './api/invitadoOpcionElegidaController.service';
+import { OpcionElegidaControllerService } from './api/opcionElegidaController.service';
+import { OpcionOpcionElegidaControllerService } from './api/opcionOpcionElegidaController.service';
 import { PingControllerService } from './api/pingController.service';
 import { UserControllerService } from './api/userController.service';
 

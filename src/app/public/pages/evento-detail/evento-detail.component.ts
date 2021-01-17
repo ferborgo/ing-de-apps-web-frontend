@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EventoControllerService, EventoFilter, EventoWithRelations, InvitadoWithRelations } from 'destino';
+import { EventoControllerService, EventoFilter, EventoScopeFilter, EventoWithRelations, InvitadoWithRelations } from 'destino';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { IInvitado } from 'src/app/shared/interfaces/invitado.interface';
 
 @Component({
   selector: 'app-evento-detail',
@@ -18,6 +19,7 @@ export class EventoDetailComponent implements OnInit {
   error;
   autenticado = false;
   isLoggedIn: boolean;
+  invitadosSinVotar: any[];
 
   constructor(
     private route: ActivatedRoute,
@@ -58,6 +60,23 @@ export class EventoDetailComponent implements OnInit {
     this.router.navigateByUrl('/auth/login');
   }
 
+  invitadoVotoOpcion(invitado, opcion): boolean {
+    if (! invitado.opcionElegidas) return false;
+    else {
+      return invitado.opcionElegidas.some(opcionElegida => opcionElegida.opcionId == opcion.id)
+    }
+  }
+
+  votosTotales(opcion): number {
+    let cant = 0;
+    this.evento.invitados.forEach(invitado => {
+      if (invitado.opcionElegidas && invitado.opcionElegidas.some(a => a.opcionId == opcion.id)) {
+        cant = cant + 1;
+      }
+    });
+    return cant;
+  }
+
   private getNombreCreador(invitados: InvitadoWithRelations[]): string {
     const creador = invitados.find(invitado => invitado.creador);
     return creador.nombre;
@@ -74,9 +93,17 @@ export class EventoDetailComponent implements OnInit {
     };
 
     if (includeRelations) {
+
       filter.include = [
         {
-          relation: 'invitados'
+          relation: 'invitados',
+          scope: {
+            include: [
+              {
+                relation: 'opcionElegidas'
+              }
+            ]
+          }
         },
         {
           relation: 'opciones'
@@ -86,12 +113,18 @@ export class EventoDetailComponent implements OnInit {
     this.eventoController.eventoControllerFindById(id, filter)
       .subscribe(
         response => {
+          console.log('Find by id:', response);
           this.evento = response;
           if (includeRelations) {
             this.creador = this.getNombreCreador(response.invitados);
           }
+          this.invitadosSinVotar = this.getInvitadosQueNoVotaron(this.evento.invitados);
         }
       );
+  }
+
+  private getInvitadosQueNoVotaron(invitados: any[]): IInvitado[] {
+    return invitados.filter(invitado => !invitado.opcionElegidas);
   }
 
 }

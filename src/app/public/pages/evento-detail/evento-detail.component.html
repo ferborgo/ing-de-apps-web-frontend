@@ -35,7 +35,7 @@
   <mat-form-field appearance="fill">
     <mat-label> Invitados </mat-label>
     <mat-select>
-      <mat-option *ngFor="let invitado of evento.invitados" [value]="invitado.id">
+      <mat-option *ngFor="let invitado of invitadosSinVotar" [value]="invitado.id">
         {{ invitado.nombre }}
       </mat-option>
     </mat-select>
@@ -45,9 +45,45 @@
 
   <div *ngFor="let opcion of evento.opciones">
     <div>
-      {{ opcion.fechaInicio | date:'d MMM, h:mm a' }} hasta  {{ opcion.fechaFinal | date:'h:mm a' }}
+      {{ opcion.fechaInicio | date:'d MMM, h:mm a' }} hasta {{ opcion.fechaFinal | date:'h:mm a' }}
       <mat-slide-toggle></mat-slide-toggle>
     </div>
+
+  </div>
+
+  <hr>
+
+
+
+  <div *ngIf="evento" class="resultados-container">
+
+    <h4> Resultados </h4>
+    <mat-grid-list cols="{{ evento.opciones.length + 1 }}" rowHeight="50px">
+
+      <!-- Columnas -->
+      <mat-grid-tile> - </mat-grid-tile>
+      <mat-grid-tile *ngFor="let opcion of evento.opciones">
+        {{ opcion.fechaInicio | date:'d MMM, h:mm a' }} hasta {{ opcion.fechaFinal | date:'h:mm a' }}
+      </mat-grid-tile>
+
+      <!-- Votos totales -->
+      <mat-grid-tile class="total"> Votos totales </mat-grid-tile>
+      <mat-grid-tile class="total" *ngFor="let opcion of evento.opciones">
+        {{ votosTotales(opcion) }}
+      </mat-grid-tile>
+
+      <!-- Votos de los invitados -->
+
+      <span *ngFor="let invitado of evento.invitados">
+
+        <mat-grid-tile> {{ invitado.nombre }} </mat-grid-tile>
+        <mat-grid-tile *ngFor="let opcion of evento.opciones">
+          <span *ngIf="invitadoVotoOpcion(invitado, opcion)"> X </span>
+        </mat-grid-tile>
+
+      </span>
+
+    </mat-grid-list>
 
   </div>
 

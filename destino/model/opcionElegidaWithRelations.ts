@@ -9,17 +9,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { OpcionElegidaWithRelations } from './opcionElegidaWithRelations';
 
 
 /**
- * (tsType: OpcionWithRelations, schemaOptions: { includeRelations: true })
+ * (tsType: OpcionElegidaWithRelations, schemaOptions: { includeRelations: true })
  */
-export interface OpcionWithRelations { 
+export interface OpcionElegidaWithRelations { 
     id?: string;
-    fechaInicio: string;
-    fechaFinal: string;
-    eventoId?: string;
-    opcionElegidas?: Array<OpcionElegidaWithRelations>;
+    invitadoId?: string;
+    opcionId?: string;
 }
 
