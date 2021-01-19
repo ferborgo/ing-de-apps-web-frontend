@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventoControllerService, EventoFilter, EventoScopeFilter, EventoWithRelations, InvitadoWithRelations, OpcionElegidaControllerService } from 'destino';
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -29,7 +30,8 @@ export class EventoDetailComponent implements OnInit {
     private opcionElegidaController: OpcionElegidaControllerService,
     private authService: AuthService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private snak: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -63,6 +65,20 @@ export class EventoDetailComponent implements OnInit {
   onIniciarSesion(): void {
     this.router.navigateByUrl('/auth/login');
   }
+
+  // private setVotosTotales(evento): void {
+  //   evento.invitados.forEach(invitado => {
+  //     if (invitado.opcionElegidas) {
+  //       invitado.opcionElegidas.forEach(opcion => {
+  //         if (this.votosTotales.hasOwnProperty(opcion.id)) {
+  //           this.votosTotales[opcion.id] = this.votosTotales[opcion.id] + 1;
+  //         } else {
+  //           this.votosTotales[opcion.id] = 1;
+  //         }
+  //       })
+  //     }
+  //   })
+  // }
 
   private getNombreCreador(invitados: InvitadoWithRelations[]): string {
     const creador = invitados.find(invitado => invitado.creador);
@@ -128,8 +144,13 @@ export class EventoDetailComponent implements OnInit {
         opcionId: opcionId
       }).toPromise();
     });
-    console.log('Se terminaron todas. Recargar')
 
+    this.getEvento(this.id, true);
+    const invitado = this.evento.invitados.find(invitado => invitado.id == this.invitadoSeleccionado.value);
+    this.snak.open(`¡Muy bien ${invitado.nombre}! Ya se guardó tu selección`, '¡OK!', {
+      duration: 1500,
+      direction: 'ltr'
+    });
   }
 
 }

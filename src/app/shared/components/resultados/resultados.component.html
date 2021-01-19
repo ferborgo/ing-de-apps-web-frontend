@@ -7,13 +7,16 @@
       <!-- Columnas -->
       <mat-grid-tile> - </mat-grid-tile>
       <mat-grid-tile *ngFor="let opcion of evento.opciones">
-        {{ opcion.fechaInicio | date:'d MMM, h:mm a' }} hasta {{ opcion.fechaFinal | date:'h:mm a' }}
+        {{ generarTitulo(opcion.fechaInicio, opcion.fechaFinal) }}
       </mat-grid-tile>
 
       <!-- Votos totales -->
       <mat-grid-tile class="total"> Votos totales </mat-grid-tile>
       <mat-grid-tile class="total" *ngFor="let opcion of evento.opciones">
         {{ votosTotales(opcion) }}
+        <span *ngIf="opcionMasVotada && opcion.id == opcionMasVotada.id">
+          <mat-icon> done </mat-icon>
+        </span>
       </mat-grid-tile>
 
       <!-- Votos de los invitados -->
