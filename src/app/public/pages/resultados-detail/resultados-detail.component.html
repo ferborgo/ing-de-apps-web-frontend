@@ -1,0 +1,43 @@
+<div class="evento-detail" *ngIf="evento ; else cargando">
+
+  <nav class="navbar">
+    <div class="producto">
+      Meeting-O-Matic
+    </div>
+    <div class="boton">
+      <button *ngIf="isLoggedIn" mat-button (click)="onCerrarSesion()"> Cerrar sesión </button>
+      <button *ngIf="!isLoggedIn" mat-button (click)="onIniciarSesion()"> Iniciar sesión </button>
+    </div>
+  </nav>
+
+  <h1 class="center"> Resultados de {{ evento.nombre }} </h1>
+
+  <p>
+    {{ evento.descripcion }}
+  </p>
+
+  <mat-form-field appearance="outline">
+    <mat-label> Contraseña </mat-label>
+    <input matInput type="password" [formControl]="passwordInput">
+  </mat-form-field>
+  <button mat-button (click)="verificar()"> Verificar </button>
+
+  <p *ngIf="error">
+    Error: {{ error }}
+  </p>
+</div>
+
+
+<div *ngIf="autenticado">
+
+  <div *ngIf="evento" class="resultados-container">
+
+    <shared-resultados [evento]="evento"></shared-resultados>
+
+  </div>
+
+</div>
+
+<ng-template #cargando>
+  cargando...
+</ng-template>

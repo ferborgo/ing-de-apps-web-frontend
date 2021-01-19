@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { EventoDetailComponent } from './pages/evento-detail/evento-detail.component';
 import { NuevoEventoComponent } from './pages/nuevo-evento/nuevo-evento.component';
+import { ResultadosDetailComponent } from './pages/resultados-detail/resultados-detail.component';
 
 
 const routes: Routes = [
@@ -11,7 +12,13 @@ const routes: Routes = [
   },
   {
     path: 'eventos/:id',
-    component: EventoDetailComponent
+    component: EventoDetailComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'eventos/:id/resultados',
+    component: ResultadosDetailComponent,
+    pathMatch: 'full'
   },
   {
     path: '**',

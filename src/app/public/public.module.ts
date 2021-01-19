@@ -11,11 +11,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { EventoDetailComponent } from './pages/evento-detail/evento-detail.component';
 import { SharedModule } from '../shared/shared.module';
 import { MaterialModule } from '../material/material.module';
+import { ResultadosDetailComponent } from './pages/resultados-detail/resultados-detail.component';
 
 @NgModule({
   declarations: [
     NuevoEventoComponent,
-    EventoDetailComponent
+    EventoDetailComponent,
+    ResultadosDetailComponent
   ],
   imports: [
     CommonModule,
