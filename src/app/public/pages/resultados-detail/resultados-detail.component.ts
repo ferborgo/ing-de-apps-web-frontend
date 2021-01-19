@@ -13,10 +13,12 @@ export class ResultadosDetailComponent implements OnInit {
 
   evento: any;
   id: string;
+  codigoResultadosParam: string;
   passwordInput = new FormControl('', Validators.required);
   error;
   autenticado = false;
   isLoggedIn: boolean;
+  loading = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,10 +28,26 @@ export class ResultadosDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('Resultados-detail init')
+    console.log('Resultados-detail init');
     this.id = this.route.snapshot.params.id;
-    this.getEvento(this.id);
-    this.isLoggedIn = this.authService.isLoggedIn();
+    this.codigoResultadosParam = this.route.snapshot.params.codigoResultados;
+    if (!this.codigoResultadosParam) {
+      this.error = 'Se debe enviar un código de resultados';
+    } else {
+      this.verificarCodigo(this.id, this.codigoResultadosParam)
+        .then((response) => {
+          this.getEvento(this.id);
+          this.isLoggedIn = this.authService.isLoggedIn();
+        })
+        .catch(error => {
+          this.error = `El código de resultados ${this.codigoResultadosParam} no es valido para este evento`;
+        })
+        .finally(() => this.loading = false);
+    }
+  }
+
+  private async verificarCodigo(eventoID: string, codigoResultados: string): Promise<boolean> {
+    return this.eventoController.eventoControllerValidarCodigoResultados(eventoID, { codigoResultados }).toPromise();
   }
 
   onCerrarSesion(): void {

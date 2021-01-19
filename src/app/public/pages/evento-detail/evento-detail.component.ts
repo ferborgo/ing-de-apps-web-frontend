@@ -95,7 +95,8 @@ export class EventoDetailComponent implements OnInit {
         id: true,
         nombre: true,
         descripcion: true,
-        password: false
+        password: false,
+        codigoResultados: false
       }
     };
 

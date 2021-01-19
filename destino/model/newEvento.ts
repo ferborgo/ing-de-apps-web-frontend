@@ -18,6 +18,10 @@ export interface NewEvento {
     nombre: string;
     descripcion?: string;
     password: string;
+    codigoResultados?: string;
+    resultadosPublicos: boolean;
+    soloUnaOpcion: boolean;
+    invitadosDinamicos: boolean;
     usuarioCreadorID?: string;
 }
 

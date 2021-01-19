@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CalendarEvent } from 'angular-calendar';
-import { EventoControllerService, EventoInvitadoControllerService, EventoOpcionControllerService, NewInvitadoInEvento, NewOpcionInEvento } from 'destino';
+import { EventoControllerService, EventoInvitadoControllerService, EventoOpcionControllerService, NewEvento, NewInvitadoInEvento, NewOpcionInEvento } from 'destino';
 import { IConfig } from '../interfaces/config.interface';
 import { IDatosGenerales } from '../interfaces/datos.generales.interface';
 import { IInvitado } from '../interfaces/invitado.interface';
@@ -22,10 +22,13 @@ export class EventoService {
 
   async finalizar() {
 
-    const nuevoEvento = {
+    const nuevoEvento: NewEvento = {
       nombre: this.datosGenerales.nombre,
       descripcion: this.datosGenerales.descripcion,
-      password: this.getConfig().password
+      password: this.getConfig().password,
+      resultadosPublicos: this.getConfig().resultadosPublicos,
+      invitadosDinamicos: this.getConfig().invitadosDinamicos,
+      soloUnaOpcion: this.getConfig().soloUnaOpcion
     };
     const response = await this.eventoController.eventoControllerCreate(nuevoEvento).pipe().toPromise();
     const nuevoEventoID = response.id;

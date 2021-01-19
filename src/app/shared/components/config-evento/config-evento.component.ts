@@ -11,6 +11,10 @@ export class ConfigEventoComponent implements OnInit {
 
   @Output() siguiente = new EventEmitter<string>();
 
+  soloUnaOpcion = false;
+  invitadosDinamicos = false;
+  resultadosPrivados = false;
+
   password = new FormControl('');
   loading = false;
 
@@ -23,7 +27,12 @@ export class ConfigEventoComponent implements OnInit {
 
   onSiguiente(): void {
     this.loading = true;
-    this.eventoService.setConfig({password: this.password.value});
+    this.eventoService.setConfig({
+      password: this.password.value,
+      soloUnaOpcion: this.soloUnaOpcion,
+      invitadosDinamicos: this.invitadosDinamicos,
+      resultadosPublicos: !this.resultadosPrivados
+    });
     this.eventoService.finalizar()
       .then(
         response => {

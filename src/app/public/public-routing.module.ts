@@ -16,7 +16,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'eventos/:id/resultados',
+    path: 'eventos/:id/resultados/:codigoResultados',
     component: ResultadosDetailComponent,
     pathMatch: 'full'
   },

@@ -1,8 +1,20 @@
-<div class="confirmacion-evento">
+<div class="confirmacion-evento" *ngIf="! loading ; else cargando">
   <h2> ¡Listo! </h2>
 
   <p> URL para el evento: {{ url }} </p>
 
   <p>Acordate que la password es: {{ password }}</p>
-  <button mat-button (click)="onVolver()"> Volver al inicio </button>
+
+  <div *ngIf="urlResultados ; else resultadosPublicos">
+    <p> Esta es la URL con los resultados {{ urlResultados}} </p>
+    <strong> Acordate </strong> que es privada para vos por ser el creador.
+    <strong> ¡No la compartas si querés que los resultados sean privados!</strong>
+    <button mat-button (click)="onVolver()"> Volver al inicio </button>
+  </div>
+
+  <ng-template #resultadosPublicos>
+    Todos podrán ver los resultados con el link del evento
+  </ng-template>
 </div>
+
+<ng-template #cargando> Cargando... </ng-template>

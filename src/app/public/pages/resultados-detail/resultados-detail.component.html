@@ -1,4 +1,4 @@
-<div class="evento-detail" *ngIf="evento ; else cargando">
+<div class="evento-detail" *ngIf="!loading ; else cargando">
 
   <nav class="navbar">
     <div class="producto">
@@ -10,31 +10,39 @@
     </div>
   </nav>
 
-  <h1 class="center"> Resultados de {{ evento.nombre }} </h1>
+  <div *ngIf="evento ; else hayError">
 
-  <p>
-    {{ evento.descripcion }}
-  </p>
+    <h1 class="center"> Resultados de {{ evento.nombre }} </h1>
 
-  <mat-form-field appearance="outline">
-    <mat-label> Contraseña </mat-label>
-    <input matInput type="password" [formControl]="passwordInput">
-  </mat-form-field>
-  <button mat-button (click)="verificar()"> Verificar </button>
+    <p>
+      {{ evento.descripcion }}
+    </p>
 
-  <p *ngIf="error">
-    Error: {{ error }}
-  </p>
-</div>
+    <mat-form-field appearance="outline">
+      <mat-label> Contraseña </mat-label>
+      <input matInput type="password" [formControl]="passwordInput">
+    </mat-form-field>
+    <button mat-button (click)="verificar()"> Verificar </button>
 
+    <p *ngIf="error">
+      Error: {{ error }}
+    </p>
 
-<div *ngIf="autenticado">
+    <div *ngIf="autenticado">
 
-  <div *ngIf="evento" class="resultados-container">
+      <div *ngIf="evento" class="resultados-container">
 
-    <shared-resultados [evento]="evento"></shared-resultados>
+        <shared-resultados [evento]="evento"></shared-resultados>
+
+      </div>
+
+    </div>
 
   </div>
+
+  <ng-template #hayError>
+    {{ error }}
+  </ng-template>
 
 </div>
 

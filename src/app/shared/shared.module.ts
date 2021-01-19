@@ -7,7 +7,7 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { NuevoEventoComponent } from './components/nuevo-evento/nuevo-evento.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfigEventoComponent } from './components/config-evento/config-evento.component';
 import { ConfirmacionEventoComponent } from './components/confirmacion-evento/confirmacion-evento.component';
 import { InvitadosEventoComponent } from './components/invitados-evento/invitados-evento.component';
@@ -40,7 +40,8 @@ export function momentAdapterFactory() {
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: momentAdapterFactory }),
     ReactiveFormsModule,
     RouterModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule
   ],
   providers: [
     EventoService

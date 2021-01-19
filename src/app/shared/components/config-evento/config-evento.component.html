@@ -4,7 +4,7 @@
   <div class="config-list">
 
     <div class="config-item">
-      <mat-slide-toggle [checked]=true></mat-slide-toggle>
+      <mat-slide-toggle [(ngModel)]="resultadosPrivados"></mat-slide-toggle>
       <div class="texto">
         <div clasS="pregunta">
           ¿Quiere que la encuesta sea oculta entre los invitados?
@@ -16,7 +16,7 @@
     </div>
 
     <div class="config-item">
-      <mat-slide-toggle [checked]=false></mat-slide-toggle>
+      <mat-slide-toggle [(ngModel)]="soloUnaOpcion"></mat-slide-toggle>
       <div class="texto">
         <div clasS="pregunta">
           ¿Quiere que los invitados puedan elegir sólo una opción?
@@ -28,7 +28,7 @@
     </div>
 
     <div class="config-item">
-      <mat-slide-toggle [checked]=true></mat-slide-toggle>
+      <mat-slide-toggle [(ngModel)]="invitadosDinamicos"></mat-slide-toggle>
       <div class="texto">
         <div clasS="pregunta">
           ¿Quiere que personas que no agregó como invitados puedan participar?
