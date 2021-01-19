@@ -59,11 +59,15 @@
 
 
 
-  <div *ngIf="evento" class="resultados-container">
+  <div *ngIf="evento && evento.resultadosPublicos ; else sinResultados" class="resultados-container">
 
     <shared-resultados [evento]="evento"></shared-resultados>
 
   </div>
+
+  <ng-template #sinResultados>
+    Los resultados sólo los podrá ver el creador del evento
+  </ng-template>
 
 </div>
 
