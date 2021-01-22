@@ -6,21 +6,3 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .center {
   text-align: center;
 }
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  height: 64px;
-  align-items: center;
-  margin-bottom: 50px;
-
-  .producto {
-    font-size: 30px;
-    padding-left: 15px;
-  }
-
-  .boton {
-    height: 100%;
-    display: flex;
-  }
-}

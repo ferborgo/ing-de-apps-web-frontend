@@ -1,0 +1,19 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  height: 64px;
+  align-items: center;
+  margin-bottom: 50px;
+  width: 100%;
+  background-color: #c5dee62b;
+
+  .producto {
+    font-size: 30px;
+    padding-left: 15px;
+  }
+
+  .boton {
+    height: 100%;
+    display: flex;
+  }
+}

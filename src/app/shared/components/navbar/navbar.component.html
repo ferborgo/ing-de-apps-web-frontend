@@ -1,0 +1,9 @@
+<nav class="navbar">
+    <div class="producto">
+      Meeting-O-Matic
+    </div>
+    <div class="boton">
+      <button *ngIf="isLoggedIn" mat-button (click)="onCerrarSesion()"> Cerrar sesión </button>
+      <button *ngIf="!isLoggedIn" mat-button (click)="onIniciarSesion()"> Iniciar sesión </button>
+    </div>
+</nav>

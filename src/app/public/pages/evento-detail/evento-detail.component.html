@@ -1,14 +1,6 @@
 <div class="evento-detail" *ngIf="evento ; else cargando">
 
-  <nav class="navbar">
-    <div class="producto">
-      Meeting-O-Matic
-    </div>
-    <div class="boton">
-      <button *ngIf="isLoggedIn" mat-button (click)="onCerrarSesion()"> Cerrar sesión </button>
-      <button *ngIf="!isLoggedIn" mat-button (click)="onIniciarSesion()"> Iniciar sesión </button>
-    </div>
-  </nav>
+  <shared-navbar></shared-navbar>
 
   <h1 class="center"> {{ evento.nombre }} </h1>
   <h4 *ngIf="creador"> Creado por {{ creador }} el día tal</h4>
