@@ -19,9 +19,8 @@ export class ResultadosComponent implements OnInit {
   }
 
   invitadoVotoOpcion(invitado, opcion): boolean {
-    if (! invitado.opcionElegidas) return false;
-    else {
-      return invitado.opcionElegidas.some(opcionElegida => opcionElegida.opcionId == opcion.id)
+    if (! invitado.opcionElegidas) { return false; } else {
+      return invitado.opcionElegidas.some(opcionElegida => opcionElegida.opcionId == opcion.id);
     }
   }
 

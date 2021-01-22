@@ -11,6 +11,8 @@ export class PerfilComponent implements OnInit {
 
   user: IUser;
   eventos: EventoWithRelations[];
+  viendoEvento = false;
+  eventoViendo: any;
 
   constructor(
     private authService: AuthService,
@@ -30,6 +32,16 @@ export class PerfilComponent implements OnInit {
 
   onCerrarSesion(): void {
     this.authService.logout();
+  }
+
+  onVerEvento(evento) {
+    this.eventoViendo = evento;
+    this.viendoEvento = true;
+  }
+
+  onSalirDeEvento(event) {
+    this.eventoViendo = null;
+    this.viendoEvento = false;
   }
 
 }

@@ -1,0 +1,51 @@
+<div class="mi-evento-detail">
+
+
+
+  <div *ngIf="evento ; else hayError">
+
+
+    <button (click)="onVolver()"> Volver </button>
+    <button> Editar </button>
+
+
+    <h1 class="center"> {{ evento.nombre }} </h1>
+
+    <p>
+      {{ evento.descripcion }}
+    </p>
+
+    <div>
+
+      <hr>
+
+      <div class="resultados-container">
+
+        <shared-resultados [evento]="evento"></shared-resultados>
+
+      </div>
+
+    </div>
+
+
+    <p *ngIf="error">
+      Error: {{ error }}
+    </p>
+
+
+  </div>
+
+
+
+
+  <ng-template #cargando>
+    cargando...
+  </ng-template>
+
+
+
+  <ng-template #hayError>
+    {{ error }}
+  </ng-template>
+
+</div>
