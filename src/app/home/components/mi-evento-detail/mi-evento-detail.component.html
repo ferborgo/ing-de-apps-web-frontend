@@ -5,8 +5,8 @@
   <div *ngIf="evento ; else hayError">
 
 
-    <button (click)="onVolver()"> Volver </button>
-    <button> Editar </button>
+    <button mat-button (click)="onVolver()"> Volver </button>
+    <button mat-button> Editar </button>
 
 
     <h1 class="center"> {{ evento.nombre }} </h1>
@@ -14,6 +14,12 @@
     <p>
       {{ evento.descripcion }}
     </p>
+
+    <hr>
+
+    <p> Link para los invitados: {{ urlInvitados }} </p>
+    <p> Contraseña {{ evento.password }} </p>
+
 
     <div>
 

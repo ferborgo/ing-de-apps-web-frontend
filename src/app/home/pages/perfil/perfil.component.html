@@ -27,13 +27,13 @@
       </div>
     </div>
 
-    <div class="eventos" *ngIf="eventos; else cargando">
+    <div class="eventos-container" *ngIf="eventos; else cargando">
 
-      <div *ngIf="! viendoEvento">
+      <div *ngIf="! viendoEvento" class="eventos">
         <mat-card>
           <mat-card-title> Nuevo evento </mat-card-title>
           <mat-card-actions>
-            <mat-icon class="add-icon"> add </mat-icon>
+            <mat-icon [routerLink]="['eventos/nuevo']" class="add-icon"> add </mat-icon>
           </mat-card-actions>
         </mat-card>
 

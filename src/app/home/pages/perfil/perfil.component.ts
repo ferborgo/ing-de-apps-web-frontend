@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EventoControllerService, EventoWithRelations } from 'destino';
+import { EventoControllerService, EventoFilter, EventoWithRelations } from 'destino';
 import { AuthService, IUser } from 'src/app/auth/services/auth.service';
 
 @Component({

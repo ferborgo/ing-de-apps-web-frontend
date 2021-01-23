@@ -11,19 +11,23 @@ export class MiEventoDetailComponent implements OnInit {
 
   @Input() evento: any;
   @Output() salir = new EventEmitter();
+  urlInvitados: string;
 
   error: string;
 
-  constructor(
-    private route: ActivatedRoute,
-    private service: EventoControllerService
-  ) { }
+  constructor() { }
 
   ngOnInit() {
+    this.urlInvitados = this.armarURL();
   }
 
   onVolver(): void {
     this.salir.emit(true);
+  }
+
+  private armarURL(): string {
+    const id = this.evento.id;
+    return `localhost:4200/eventos/${id}`;
   }
 
 }
