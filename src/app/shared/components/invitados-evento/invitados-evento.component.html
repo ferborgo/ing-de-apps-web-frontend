@@ -2,18 +2,18 @@
   <h2> Ahora agreguemos a los invitados </h2>
 
 
-  <h4> ¡Primero díganos quién es usted!</h4>
+  <h4 *ngIf="!isLoggedIn"> ¡Primero díganos quién es usted!</h4>
   <form [formGroup]="creadorForm">
 
     <div>
       <mat-form-field appearance="outline">
         <mat-label>Nombre</mat-label>
-        <input formControlName="nombre" matInput placeholder="Fernando...">
+        <input [readonly]="isLoggedIn" formControlName="nombre" matInput placeholder="Fernando...">
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Email (opcional)</mat-label>
-        <input formControlName="email" matInput placeholder="fernando@gmail.com...">
+        <input [readonly]="isLoggedIn" formControlName="email" matInput placeholder="fernando@gmail.com...">
       </mat-form-field>
     </div>
 

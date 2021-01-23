@@ -1,6 +1,7 @@
 import { toTypeScript } from '@angular/compiler';
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { IInvitado } from '../../interfaces/invitado.interface';
 import { EventoService } from '../../services/evento.service';
 
@@ -15,16 +16,26 @@ export class InvitadosEventoComponent implements OnInit, OnDestroy {
 
   controls: FormControl[] = [];
 
+  isLoggedIn: boolean;
+
   creadorForm = new FormGroup({
     nombre: new FormControl('', Validators.required),
     email: new FormControl('', Validators.email),
   });
 
   constructor(
-    private eventoSerive: EventoService
+    private eventoSerive: EventoService,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
+    this.isLoggedIn = this.authService.isLoggedIn();
+
+    if (this.isLoggedIn) {
+      const user = this.authService.getLoggedUser();
+      this.creadorForm.setValue({nombre: user.username, email: user.email});
+    }
+
     this.eventoSerive.getInvitados().forEach(invitado => {
       this.controls.push(new FormControl(invitado.nombre));
     });

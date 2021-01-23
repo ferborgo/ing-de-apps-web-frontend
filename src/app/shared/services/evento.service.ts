@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CalendarEvent } from 'angular-calendar';
 import { EventoControllerService, EventoInvitadoControllerService, EventoOpcionControllerService, NewEvento, NewInvitadoInEvento, NewOpcionInEvento } from 'destino';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { IConfig } from '../interfaces/config.interface';
 import { IDatosGenerales } from '../interfaces/datos.generales.interface';
 import { IInvitado } from '../interfaces/invitado.interface';
@@ -17,7 +18,8 @@ export class EventoService {
   constructor(
     private eventoController: EventoControllerService,
     private eventopOpcionController: EventoOpcionControllerService,
-    private eventoInvitadoController: EventoInvitadoControllerService
+    private eventoInvitadoController: EventoInvitadoControllerService,
+    private authService: AuthService
   ) { }
 
   async finalizar() {
@@ -30,6 +32,12 @@ export class EventoService {
       invitadosDinamicos: this.getConfig().invitadosDinamicos,
       soloUnaOpcion: this.getConfig().soloUnaOpcion
     };
+
+    if (this.authService.isLoggedIn()) {
+      const id = this.authService.getLoggedUser().id;
+      nuevoEvento.usuarioCreadorID = id;
+    }
+
     const response = await this.eventoController.eventoControllerCreate(nuevoEvento).pipe().toPromise();
     const nuevoEventoID = response.id;
     this.nuevoEventoID = response.id;
@@ -46,7 +54,7 @@ export class EventoService {
 
     const creador: NewInvitadoInEvento = {
       creador: true,
-      nombre: 'Fernando'
+      nombre: this.authService.getLoggedUser().username
     };
     await this.eventoInvitadoController.eventoInvitadoControllerCreate(nuevoEventoID, creador).pipe().toPromise();
 
