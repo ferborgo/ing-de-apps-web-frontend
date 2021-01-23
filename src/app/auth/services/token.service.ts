@@ -13,6 +13,7 @@ export class TokenService {
     localStorage.removeItem('token');
     localStorage.removeItem('email');
     localStorage.removeItem('username');
+    localStorage.removeItem('id');
   }
 
   saveToken(token: string): void {
@@ -21,9 +22,11 @@ export class TokenService {
 
     const email = decoded.email;
     const username = decoded.name;
+    const id = decoded.id;
 
     localStorage.setItem('email', email);
     localStorage.setItem('username', username);
+    localStorage.setItem('id', id);
   }
 
   getToken(): string {
@@ -33,7 +36,8 @@ export class TokenService {
   getUser(): IUser {
     const user: IUser = {
       email: localStorage.getItem('email'),
-      username: localStorage.getItem('username')
+      username: localStorage.getItem('username'),
+      id: localStorage.getItem('id')
     };
     return user;
   }

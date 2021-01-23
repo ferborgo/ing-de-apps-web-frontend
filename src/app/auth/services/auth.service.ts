@@ -7,6 +7,7 @@ import { tap } from 'rxjs/operators';
 export interface IUser {
   username: string;
   email: string;
+  id: string;
 }
 
 @Injectable({
