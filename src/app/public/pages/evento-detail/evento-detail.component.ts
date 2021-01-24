@@ -172,6 +172,15 @@ export class EventoDetailComponent implements OnInit {
   onVotar() {
 
     const opcionesElegidas = Object.entries(this.slidesForm.controls).filter(entry => entry[1].value).map(entry => entry[0]);
+
+    if (this.evento.soloUnaOpcion && opcionesElegidas.length != 1) {
+      this.snak.open('¡Lo siento! Sólo puede elegir una opción', 'Bueno :(', {
+        duration: 1500,
+        direction: 'ltr'
+      })
+      return;
+    }
+
     opcionesElegidas.forEach(async opcionId => {
       await this.opcionElegidaController.opcionElegidaControllerCreate({
         invitadoId: this.invitadoSeleccionado.value,
