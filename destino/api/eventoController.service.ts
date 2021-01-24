@@ -443,9 +443,7 @@ export class EventoControllerService {
         // authentication (jwt) required
         this.configuration.accessToken = localStorage.getItem('token');
         if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
+            const accessToken = this.configuration.accessToken;
             headers = headers.set('Authorization', 'Bearer ' + accessToken);
         }
         let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;

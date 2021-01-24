@@ -11,13 +11,13 @@
  */
 
 
-export interface EventoScopeFilter { 
+export interface EventoScopeFilter {
     offset?: number;
     limit?: number;
     skip?: number;
     order?: string | Array<string>;
     where?: { [key: string]: object; };
     fields?: { [key: string]: object; };
-    include?: Array<{ [key: string]: object; }>;
+    include?: Array<{ [key: string]: string; }>;
 }
 
