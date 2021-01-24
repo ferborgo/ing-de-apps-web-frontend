@@ -49,7 +49,7 @@
     <div *ngFor="let opcion of evento.opciones">
 
       <div>
-        {{ opcion.fechaInicio | date:'d MMM, h:mm a' }} hasta {{ opcion.fechaFinal | date:'h:mm a' }}
+        {{ crearTituloOpcion(opcion.fechaInicio, opcion.fechaFinal) }}
         <mat-slide-toggle formControlName="{{opcion.id}}"></mat-slide-toggle>
       </div>
 

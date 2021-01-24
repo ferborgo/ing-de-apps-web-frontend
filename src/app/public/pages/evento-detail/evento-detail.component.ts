@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EventoControllerService, EventoFilter, EventoInvitadoControllerService, EventoScopeFilter, EventoWithRelations, InvitadoWithRelations, NewInvitadoInEvento, OpcionElegidaControllerService } from 'destino';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { IInvitado } from 'src/app/shared/interfaces/invitado.interface';
+import { DateUtils } from 'src/app/shared/utils/date.utils';
 
 @Component({
   selector: 'app-evento-detail',
@@ -162,6 +163,10 @@ export class EventoDetailComponent implements OnInit {
     const response = await this.eventoInvitadoController.eventoInvitadoControllerCreate(this.evento.id, nuevoInvitado).pipe().toPromise();
     console.log('Response: ', response);
     this.getEvento(this.evento.id, true);
+  }
+
+  crearTituloOpcion(start: Date, end: Date): string {
+    return DateUtils.generarTitulo(start, end);
   }
 
   onVotar() {
