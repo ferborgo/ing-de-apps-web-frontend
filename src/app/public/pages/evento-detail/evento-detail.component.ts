@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EventoControllerService, EventoFilter, EventoScopeFilter, EventoWithRelations, InvitadoWithRelations, OpcionElegidaControllerService } from 'destino';
+import { EventoControllerService, EventoFilter, EventoInvitadoControllerService, EventoScopeFilter, EventoWithRelations, InvitadoWithRelations, NewInvitadoInEvento, OpcionElegidaControllerService } from 'destino';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { IInvitado } from 'src/app/shared/interfaces/invitado.interface';
 
@@ -23,6 +23,7 @@ export class EventoDetailComponent implements OnInit {
   invitadosSinVotar: any[];
   invitadoSeleccionado = new FormControl();
   slidesForm: FormGroup;
+  nuevoInvitadoInput: FormControl;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,7 +32,8 @@ export class EventoDetailComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private formBuilder: FormBuilder,
-    private snak: MatSnackBar
+    private snak: MatSnackBar,
+    private eventoInvitadoController: EventoInvitadoControllerService
   ) { }
 
   ngOnInit() {
@@ -102,6 +104,17 @@ export class EventoDetailComponent implements OnInit {
 
     if (includeRelations) {
 
+      filter.fields = {
+        id: true,
+        nombre: true,
+        descripcion: true,
+        password: false,
+        codigoResultados: false,
+        invitadosDinamicos: true,
+        resultadosPublicos: true,
+        soloUnaOpcion: true
+      };
+
       filter.include = [
         {
           relation: 'invitados',
@@ -126,14 +139,29 @@ export class EventoDetailComponent implements OnInit {
           if (includeRelations) {
             this.creador = this.getNombreCreador(response.invitados);
             this.invitadosSinVotar = this.getInvitadosQueNoVotaron(this.evento.invitados);
-            let slides = {};
+            const slides = {};
             this.evento.opciones.forEach(opcion => {
-              slides[opcion.id] = ''
-            })
+              slides[opcion.id] = '';
+            });
             this.slidesForm = this.formBuilder.group(slides);
+            if (this.evento.invitadosDinamicos) {
+              this.nuevoInvitadoInput = new FormControl('');
+            }
           }
         }
       );
+  }
+
+  async agregarNuevoInvitado() {
+    const nombre = this.nuevoInvitadoInput.value;
+    const nuevoInvitado: NewInvitadoInEvento = {
+      creador: false,
+      nombre
+    };
+    console.log('Nuevo invitado: ', nuevoInvitado);
+    const response = await this.eventoInvitadoController.eventoInvitadoControllerCreate(this.evento.id, nuevoInvitado).pipe().toPromise();
+    console.log('Response: ', response);
+    this.getEvento(this.evento.id, true);
   }
 
   onVotar() {

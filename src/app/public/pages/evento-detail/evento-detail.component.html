@@ -33,6 +33,16 @@
     </mat-select>
   </mat-form-field>
 
+
+  <!-- Invitados dinámicos -->
+  <div class="invitados-dinamicos" *ngIf="evento.invitadosDinamicos">
+    <mat-form-field appearance="fill">
+      <mat-label> ¿No se encuentra en la lista? Escriba su nombre</mat-label>
+      <input matInput type="text" [formControl]="nuevoInvitadoInput">
+    </mat-form-field>
+    <button [disabled]="nuevoInvitadoInput.value.length < 3" mat-button (click)="agregarNuevoInvitado()"> Agregarme </button>
+  </div>
+
   <h4> Opciones: </h4>
 
   <form *ngIf="slidesForm" class="example-form" [formGroup]="slidesForm" (ngSubmit)="onVotar()" ngNativeValidate>
