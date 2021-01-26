@@ -31,8 +31,7 @@
         <th mat-header-cell *matHeaderCellDef>  </th>
         <td mat-cell *matCellDef="let element">
           <div class="buttons-container">
-            <button mat-button> Editar </button>
-            <button mat-button> Eliminar </button>
+            <button [disabled]="element.admin" mat-button> Eliminar </button>
           </div>
         </td>
       </ng-container>

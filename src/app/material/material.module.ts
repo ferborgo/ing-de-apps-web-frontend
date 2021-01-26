@@ -5,7 +5,8 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatSlideToggleModule,
-  MatButtonModule, MatIconModule, MatProgressSpinnerModule, MatCardModule, MatSelectModule, MatGridListModule, MatSnackBarModule, MatTableModule
+  // tslint:disable-next-line: max-line-length
+  MatButtonModule, MatIconModule, MatProgressSpinnerModule, MatCardModule, MatSelectModule, MatGridListModule, MatSnackBarModule, MatTableModule, MatPaginatorModule
 } from '@angular/material';
 
 const modules = [
@@ -20,7 +21,8 @@ const modules = [
   MatSelectModule,
   MatGridListModule,
   MatSnackBarModule,
-  MatTableModule
+  MatTableModule,
+  MatPaginatorModule
 ];
 
 @NgModule({
