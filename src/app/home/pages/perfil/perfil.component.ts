@@ -13,6 +13,8 @@ export class PerfilComponent implements OnInit {
   eventos: EventoWithRelations[];
   viendoEvento = false;
   eventoViendo: any;
+  mostrarSidebar = true;
+  anchoEventos = 70;
 
   constructor(
     private authService: AuthService,
@@ -42,6 +44,15 @@ export class PerfilComponent implements OnInit {
   onSalirDeEvento(event) {
     this.eventoViendo = null;
     this.viendoEvento = false;
+  }
+
+  toggleSidebar(): void {
+    this.mostrarSidebar = ! this.mostrarSidebar;
+    if (this.mostrarSidebar) {
+      this.anchoEventos = 70;
+    } else {
+      this.anchoEventos = 100;
+    }
   }
 
 }

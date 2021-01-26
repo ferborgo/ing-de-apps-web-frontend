@@ -1,5 +1,10 @@
 .perfil {
   height: 100%;
+
+  .toggle {
+    cursor: pointer;
+    margin-left: 10px;
+  }
   .content {
     display: flex;
     width: 100%;
@@ -15,6 +20,8 @@
       justify-content: space-around;
       height: 100%;
       text-align: center;
+      border-right: 1px solid;
+      margin-right: 5px;
 
       .sidebar-content {
         height: 70%;
@@ -31,7 +38,7 @@
     }
 
     .eventos-container {
-      width: 70%;
+      margin-left: 5px;
       .eventos {
         height: 100%;
         padding-left: 10px;

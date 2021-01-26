@@ -2,8 +2,13 @@
 
   <shared-navbar></shared-navbar>
 
+  <button class="toggle" (click)="toggleSidebar()">
+    <mat-icon *ngIf="mostrarSidebar"> clear </mat-icon>
+    <mat-icon *ngIf="!mostrarSidebar"> menu </mat-icon>
+  </button>
+
   <div class="content">
-    <div class="sidebar">
+    <div class="sidebar" *ngIf="mostrarSidebar">
 
       <div class="sidebar-content">
         <h2> Tu Perfil </h2>
@@ -27,7 +32,7 @@
       </div>
     </div>
 
-    <div class="eventos-container" *ngIf="eventos; else cargando">
+    <div class="eventos-container" *ngIf="eventos; else cargando" [ngStyle]="{'width.%': anchoEventos}">
 
       <div *ngIf="! viendoEvento" class="eventos">
         <mat-card>
