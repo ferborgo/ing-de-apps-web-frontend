@@ -51,6 +51,8 @@ export class EventoControllerService {
             this.configuration.basePath = basePath;
         }
         this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
+
+        this.configuration.accessToken = localStorage.getItem('token');
     }
 
 
