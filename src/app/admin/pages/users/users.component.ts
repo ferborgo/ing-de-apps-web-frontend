@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserControllerService } from 'destino';
 
 @Component({
   selector: 'app-users',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsersComponent implements OnInit {
 
-  constructor() { }
+  displayedColumns: string[] = ['id', 'username', 'email', 'admin', 'buttons'];
+  dataSource;
+
+  constructor(
+    private service: UserControllerService
+  ) { }
 
   ngOnInit() {
+    this.service.userControllerGetUsers().subscribe(
+      response => {
+        console.log(response);
+        this.dataSource = response;
+      }
+    );
   }
 
 }

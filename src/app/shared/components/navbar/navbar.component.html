@@ -2,6 +2,14 @@
     <div class="producto" [routerLink]="['']">
       Meeting-O-Matic
     </div>
+    <div *ngIf="user.admin" class="admin">
+      <div [routerLink]="['/admin/users']">
+        Usuarios
+      </div>
+      <div>
+        Eventos
+      </div>
+    </div>
     <div class="boton">
       <button *ngIf="isLoggedIn" mat-button (click)="onCerrarSesion()"> Cerrar sesión </button>
       <button *ngIf="!isLoggedIn" mat-button (click)="onIniciarSesion()"> Iniciar sesión </button>

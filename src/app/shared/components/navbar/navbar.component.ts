@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 export class NavbarComponent implements OnInit {
 
   isLoggedIn: boolean;
+  user;
 
   constructor(
     private authService: AuthService,
@@ -18,6 +19,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.isLoggedIn = this.authService.isLoggedIn();
+    this.user = this.authService.getLoggedUser();
   }
 
   onCerrarSesion(): void {
