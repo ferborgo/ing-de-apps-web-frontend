@@ -8,6 +8,7 @@ export interface IUser {
   username: string;
   email: string;
   id: string;
+  admin?: boolean;
 }
 
 @Injectable({
@@ -32,8 +33,8 @@ export class AuthService {
       password
     };
     return this.controllerUser.userControllerLogin(request).pipe(
-      tap((response) => {
-        this.tokenService.saveToken(response.token);
+      tap((response: any) => {
+        this.tokenService.saveToken(response.token, response.admin);
         this.router.navigateByUrl('/');
       })
     );

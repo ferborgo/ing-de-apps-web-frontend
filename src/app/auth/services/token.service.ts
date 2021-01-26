@@ -14,9 +14,10 @@ export class TokenService {
     localStorage.removeItem('email');
     localStorage.removeItem('username');
     localStorage.removeItem('id');
+    localStorage.removeItem('admin');
   }
 
-  saveToken(token: string): void {
+  saveToken(token: string, admin: string): void {
     localStorage.setItem('token', token);
     const decoded: any = jwt_decode(token);
 
@@ -27,6 +28,7 @@ export class TokenService {
     localStorage.setItem('email', email);
     localStorage.setItem('username', username);
     localStorage.setItem('id', id);
+    (admin) ? localStorage.setItem('admin', String(admin)) : localStorage.setItem('admin', 'false');
   }
 
   getToken(): string {
@@ -34,10 +36,12 @@ export class TokenService {
   }
 
   getUser(): IUser {
+    const admin: boolean = localStorage.getItem('admin') == 'true';
     const user: IUser = {
       email: localStorage.getItem('email'),
       username: localStorage.getItem('username'),
-      id: localStorage.getItem('id')
+      id: localStorage.getItem('id'),
+      admin
     };
     return user;
   }
