@@ -6,14 +6,42 @@
 
 
     <button mat-button (click)="onVolver()"> Volver </button>
-    <button mat-button> Editar </button>
+    <button mat-button *ngIf="!editandoGeneral" (click)="onEditarGeneral()"> Editar </button>
 
 
-    <h1 class="center"> {{ evento.nombre }} </h1>
+    <!-- GENERAL -->
+    <div class="general">
 
-    <p>
-      {{ evento.descripcion }}
-    </p>
+      <!-- NOMBRE EVENTO -->
+      <h1 class="center">
+
+        <span *ngIf="!editandoGeneral">
+          {{ evento.nombre }}
+        </span>
+
+        <mat-form-field *ngIf="editandoGeneral">
+          <input matInput type="textarea" [formControl]="nombreEventoInput">
+        </mat-form-field>
+
+      </h1>
+
+
+      <!-- DESCRIPCION EVENTO -->
+      <p>
+
+        <span *ngIf="!editandoGeneral"> {{ evento.descripcion }} </span>
+        <mat-form-field *ngIf="editandoGeneral">
+          <textarea [cols]="5" matInput type="text" [formControl]="descripcionEventoInput">
+          </textarea>
+        </mat-form-field>
+      </p>
+
+      <div *ngIf="editandoGeneral">
+        <button mat-button (click)="resetEdicionGeneral()"> Cancelar </button>
+        <button (click)="actualizarGeneral()" mat-button [disabled]="nombreEventoInput.value == evento.nombre && descripcionEventoInput.value == evento.descripcion"> Actualizar </button>
+      </div>
+
+    </div>
 
     <!-- CONFIG -->
     <div>
@@ -31,7 +59,8 @@
           <span>
             <input type="text" [formControl]="passwordInput">
             <button mat-button (click)="resetCambiarPassword()"> Cancelar </button>
-            <button mat-button [disabled]="passwordInput.value == evento.password" (click)="actualizarPassword()"> Actualizar </button>
+            <button mat-button [disabled]="passwordInput.value == evento.password" (click)="actualizarPassword()">
+              Actualizar </button>
           </span>
         </ng-template>
 
@@ -95,7 +124,8 @@
           <mat-label> Email (opcional) </mat-label>
           <input matInput type="text" [formControl]="nuevoInvitadoEmailInput">
         </mat-form-field>
-        <button mat-button [disabled]="!nuevoInvitadoNombreInput.valid" (click)="onAgregarNuevoInvitado()"> Agregar </button>
+        <button mat-button [disabled]="!nuevoInvitadoNombreInput.valid" (click)="onAgregarNuevoInvitado()"> Agregar
+        </button>
       </div>
     </div>
 

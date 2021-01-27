@@ -32,6 +32,8 @@
       </div>
     </div>
 
+    <mat-divider [vertical]="true"></mat-divider>
+
     <div class="eventos-container" *ngIf="eventos; else cargando" [ngStyle]="{'width.%': anchoEventos}">
 
       <div *ngIf="! viendoEvento" class="eventos">

@@ -24,6 +24,10 @@ export class MiEventoDetailComponent implements OnInit {
   cambiandoPassword = false;
   error: string;
 
+  editandoGeneral = false;
+  nombreEventoInput: FormControl;
+  descripcionEventoInput: FormControl;
+
   constructor(
     private service: EventoControllerService,
     private eventoInvitadoController: EventoInvitadoControllerService,
@@ -70,6 +74,33 @@ export class MiEventoDetailComponent implements OnInit {
           direction: 'ltr'
         });
       });
+  }
+
+  onEditarGeneral(): void {
+    this.nombreEventoInput = new FormControl(this.evento.nombre, [Validators.required, Validators.minLength(5)]);
+    this.descripcionEventoInput = new FormControl(this.evento.descripcion);
+    this.editandoGeneral = true;
+  }
+
+  actualizarGeneral(): void {
+    this.eventoEdicion.nombre = this.nombreEventoInput.value;
+    this.eventoEdicion.descripcion = this.descripcionEventoInput.value;
+    this.service.eventoControllerUpdateById(this.evento.id, this.eventoEdicion)
+      .subscribe(() => {
+        this.evento.nombre = this.eventoEdicion.nombre;
+        this.evento.descripcion = this.eventoEdicion.descripcion;
+        this.resetEdicionGeneral();
+        this.snak.open('Se actualizaron los datos generales', '¡Genial!', {
+          duration: 2000,
+          direction: 'ltr'
+        });
+      });
+  }
+
+  resetEdicionGeneral(): void {
+    this.nombreEventoInput = null;
+    this.descripcionEventoInput = null;
+    this.editandoGeneral = false;
   }
 
   onAgregarNuevoInvitado() {
