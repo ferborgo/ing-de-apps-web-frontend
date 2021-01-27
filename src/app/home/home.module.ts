@@ -6,6 +6,7 @@ import { MaterialModule } from '../material/material.module';
 import { MiEventoDetailComponent } from './components/mi-evento-detail/mi-evento-detail.component';
 import { SharedModule } from '../shared/shared.module';
 import { HomeNuevoEventoComponent } from './pages/home-nuevo-evento/home-nuevo-evento.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -15,7 +16,8 @@ import { HomeNuevoEventoComponent } from './pages/home-nuevo-evento/home-nuevo-e
     CommonModule,
     HomeRoutingModule,
     MaterialModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class HomeModule { }

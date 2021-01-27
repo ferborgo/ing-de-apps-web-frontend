@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
-import { EventoControllerService, EventoPartial } from 'destino';
+import { EventoControllerService, EventoInvitadoControllerService, EventoPartial, NewInvitadoInEvento } from 'destino';
 import { DateUtils } from 'src/app/shared/utils/date.utils';
 
 @Component({
@@ -14,12 +16,18 @@ export class MiEventoDetailComponent implements OnInit {
   @Output() salir = new EventEmitter();
   urlInvitados: string;
 
-  eventoEdicion: EventoPartial;
+  nuevoInvitadoNombreInput = new FormControl('', [Validators.required, Validators.minLength(3)]);
+  nuevoInvitadoEmailInput = new FormControl('');
+  passwordInput: FormControl;
 
+  eventoEdicion: EventoPartial;
+  cambiandoPassword = false;
   error: string;
 
   constructor(
-    private service: EventoControllerService
+    private service: EventoControllerService,
+    private eventoInvitadoController: EventoInvitadoControllerService,
+    private snak: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -41,6 +49,51 @@ export class MiEventoDetailComponent implements OnInit {
     this.salir.emit(true);
   }
 
+  onCambiarPassword(): void {
+    this.cambiandoPassword = true;
+    this.passwordInput = new FormControl(this.evento.password);
+  }
+
+  resetCambiarPassword(): void {
+    this.cambiandoPassword = false;
+    this.passwordInput = null;
+  }
+
+  actualizarPassword() {
+    this.eventoEdicion.password = this.passwordInput.value;
+    this.service.eventoControllerUpdateById(this.evento.id, this.eventoEdicion)
+      .subscribe(() => {
+        this.evento.password = this.eventoEdicion.password;
+        this.resetCambiarPassword();
+        this.snak.open('Se actualizó la contraseña de manera exitosa', '¡Genial!', {
+          duration: 2000,
+          direction: 'ltr'
+        });
+      });
+  }
+
+  onAgregarNuevoInvitado() {
+    const nuevoInvitado: NewInvitadoInEvento = {
+      creador: false,
+      nombre: this.nuevoInvitadoNombreInput.value
+    };
+    if (this.nuevoInvitadoEmailInput.value !== '') {
+      nuevoInvitado.email = this.nuevoInvitadoEmailInput.value;
+    }
+    this.eventoInvitadoController.eventoInvitadoControllerCreate(this.evento.id, nuevoInvitado)
+      .subscribe(
+        (response) => {
+          this.evento.invitados.push(response);
+          this.nuevoInvitadoEmailInput.reset();
+          this.nuevoInvitadoNombreInput.reset();
+          this.snak.open(`Se agregó a ${nuevoInvitado.nombre} a la lista de invitados`, '¡Genial!', {
+            duration: 2000,
+            direction: 'ltr'
+          });
+        }
+      );
+  }
+
   armarDate(opcion): string {
     return DateUtils.generarTitulo(opcion.fechaInicio, opcion.fechaFinal);
   }
@@ -55,6 +108,10 @@ export class MiEventoDetailComponent implements OnInit {
     this.service.eventoControllerUpdateById(this.evento.id, this.eventoEdicion).subscribe(
       () => {
         this.evento[propiedad] = this.eventoEdicion[propiedad];
+        this.snak.open(`Se actualizó la config correctamente`, '¡Genial!', {
+          duration: 2000,
+          direction: 'ltr'
+        });
       }
     );
   }
