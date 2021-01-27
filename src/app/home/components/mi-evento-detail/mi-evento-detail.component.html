@@ -15,10 +15,60 @@
       {{ evento.descripcion }}
     </p>
 
-    <hr>
+    <!-- CONFIG -->
+    <div>
+      <hr>
+      <h5> Configuración </h5>
+      <p> Link para los invitados: {{ urlInvitados }} </p>
+      <p> Contraseña {{ evento.password }} </p>
+      <p>
+        Resultados públicos
+        <strong class="habilitado" *ngIf="evento.resultadosPublicos ; else deshabilitado">
+          habilitado
+        </strong>
+        <button (click)="updateConfig('resultadosPublicos')"> Cambiar </button>
+      </p>
+      <p>
+        Sólo una opción
+        <strong class="habilitado" *ngIf="evento.soloUnaOpcion ; else deshabilitado">
+          habilitado
+        </strong>
+        <button (click)="updateConfig('soloUnaOpcion')"> Cambiar </button>
+      </p>
+      <p>
+        Invitados dinámicos
+        <strong class="habilitado"  *ngIf="evento.invitadosDinamicos ; else deshabilitado">
+          habilitado
+        </strong>
+        <button (click)="updateConfig('invitadosDinamicos')"> Cambiar </button>
+      </p>
 
-    <p> Link para los invitados: {{ urlInvitados }} </p>
-    <p> Contraseña {{ evento.password }} </p>
+      <ng-template #deshabilitado> <strong class="deshabilitado"> deshabilitado </strong> </ng-template>
+
+    </div>
+
+
+    <!-- OPCIONES -->
+    <div>
+      <hr>
+      <h5> Opciones </h5>
+      <ul>
+        <li *ngFor="let opcion of evento.opciones">
+          {{ armarDate(opcion)}}
+        </li>
+      </ul>
+    </div>
+
+    <!-- INVITADOS -->
+    <div>
+      <hr>
+      <h5> Invitados </h5>
+      <ul>
+        <li *ngFor="let invitado of evento.invitados">
+          {{ invitado.nombre }} {{ invitado.email }}
+        </li>
+      </ul>
+    </div>
 
 
     <div>
