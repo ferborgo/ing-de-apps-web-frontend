@@ -28,6 +28,10 @@ export class MiEventoDetailComponent implements OnInit {
   nombreEventoInput: FormControl;
   descripcionEventoInput: FormControl;
 
+  invitadoAEditar: any;
+  invitadoAEditarNombreInput: FormControl;
+  invitadoAEditarEmailInput: FormControl;
+
   constructor(
     private service: EventoControllerService,
     private eventoInvitadoController: EventoInvitadoControllerService,
@@ -127,6 +131,26 @@ export class MiEventoDetailComponent implements OnInit {
 
   armarDate(opcion): string {
     return DateUtils.generarTitulo(opcion.fechaInicio, opcion.fechaFinal);
+  }
+
+  onEditarInvitado(invitado): void {
+    console.log(invitado);
+    this.invitadoAEditar = invitado;
+    this.invitadoAEditarEmailInput = new FormControl(invitado.email);
+    this.invitadoAEditarNombreInput = new FormControl(invitado.nombre, [Validators.required, Validators.minLength(3)]);
+  }
+
+  resetEdicionInvitado(): void {
+    this.invitadoAEditar = null;
+    this.invitadoAEditarEmailInput = null;
+    this.invitadoAEditarNombreInput = null;
+  }
+
+  editarInvitado(): void {
+    console.log(this.invitadoAEditarNombreInput.value);
+    console.log(this.invitadoAEditarEmailInput.value);
+
+    this.resetEdicionInvitado();
   }
 
   private armarURL(): string {

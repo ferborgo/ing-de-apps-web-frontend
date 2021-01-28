@@ -38,7 +38,9 @@
 
       <div *ngIf="editandoGeneral">
         <button mat-button (click)="resetEdicionGeneral()"> Cancelar </button>
-        <button (click)="actualizarGeneral()" mat-button [disabled]="nombreEventoInput.value == evento.nombre && descripcionEventoInput.value == evento.descripcion"> Actualizar </button>
+        <button (click)="actualizarGeneral()" mat-button
+          [disabled]="nombreEventoInput.value == evento.nombre && descripcionEventoInput.value == evento.descripcion">
+          Actualizar </button>
       </div>
 
     </div>
@@ -109,7 +111,33 @@
       <h5> Invitados </h5>
       <ul>
         <li *ngFor="let invitado of evento.invitados">
-          {{ invitado.nombre }} <span *ngIf="invitado.email"> ({{ invitado.email }}) </span>
+          <span *ngIf="invitado !== invitadoAEditar" (click)="onEditarInvitado(invitado)">
+            {{ invitado.nombre }} <span *ngIf="invitado.email"> ({{ invitado.email }}) </span>
+          </span>
+
+          <span *ngIf="invitado === invitadoAEditar">
+
+            <div>
+              <mat-form-field>
+                <mat-label> Nombre </mat-label>
+                <input matInput type="text" [formControl]="invitadoAEditarNombreInput">
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label> Email (opcional) </mat-label>
+                <input matInput type="text" [formControl]="invitadoAEditarEmailInput">
+              </mat-form-field>
+
+              <button mat-button (click)="resetEdicionInvitado()">
+                Cancelar
+              </button>
+              <button mat-button [disabled]="invitadoAEditarNombreInput.value == invitado.nombre && invitadoAEditarEmailInput.value == invitado.email" (click)="editarInvitado()">
+                Actualizar
+              </button>
+
+            </div>
+
+          </span>
         </li>
       </ul>
 
