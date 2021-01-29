@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
-import { EventoControllerService, EventoInvitadoControllerService, EventoPartial, NewInvitadoInEvento } from 'destino';
+import { EventoControllerService, EventoInvitadoControllerService, EventoPartial, InvitadoControllerService, InvitadoPartial, NewInvitadoInEvento } from 'destino';
 import { DateUtils } from 'src/app/shared/utils/date.utils';
 
 @Component({
@@ -35,7 +35,8 @@ export class MiEventoDetailComponent implements OnInit {
   constructor(
     private service: EventoControllerService,
     private eventoInvitadoController: EventoInvitadoControllerService,
-    private snak: MatSnackBar
+    private snak: MatSnackBar,
+    private invitadoService: InvitadoControllerService
   ) { }
 
   ngOnInit() {
@@ -147,9 +148,24 @@ export class MiEventoDetailComponent implements OnInit {
   }
 
   editarInvitado(): void {
-    console.log(this.invitadoAEditarNombreInput.value);
-    console.log(this.invitadoAEditarEmailInput.value);
+    const id = this.invitadoAEditar.id;
+    const invitadoPartial: InvitadoPartial = {
+      creador: this.invitadoAEditar.creador,
+      eventoId: this.invitadoAEditar.eventoId,
+      nombre: this.invitadoAEditarNombreInput.value
+    };
 
+    if (this.invitadoAEditarEmailInput.value !== '' && this.invitadoAEditarEmailInput.value != null) {
+      invitadoPartial.email = this.invitadoAEditarEmailInput.value;
+    } else {
+      delete invitadoPartial.email;
+    }
+    this.invitadoService.invitadoControllerUpdateById(id, invitadoPartial)
+      .subscribe(() => {
+        const invitadoOriginal = this.evento.invitados.find(invitado => invitado.id === id);
+        invitadoOriginal.nombre = invitadoPartial.nombre;
+        invitadoOriginal.email = invitadoPartial.email;
+      });
     this.resetEdicionInvitado();
   }
 
