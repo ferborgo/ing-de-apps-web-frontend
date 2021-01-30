@@ -59,7 +59,14 @@ export class InvitadosEventoComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    const invitados: IInvitado[] = this.controls.map(each => ({nombre: each.value}));
+    const invitados: IInvitado[] = this.controls.map(each => ({nombre: each.value, creador: false}));
+
+    const creador: IInvitado = {
+      nombre: this.creadorForm.get('nombre').value,
+      email: this.creadorForm.get('email').value,
+      creador: true
+    };
+    invitados.push(creador);
     this.eventoSerive.setInvitados(invitados);
   }
 

@@ -52,17 +52,19 @@ export class EventoService {
       await this.eventopOpcionController.eventoOpcionControllerCreate(nuevoEventoID, nuevaOpcion).pipe().toPromise();
     });
 
-    const creador: NewInvitadoInEvento = {
-      creador: true,
-      nombre: this.authService.getLoggedUser().username
-    };
-    await this.eventoInvitadoController.eventoInvitadoControllerCreate(nuevoEventoID, creador).pipe().toPromise();
+    // if (this.authService.isLoggedIn()) {
+    //   const creador: NewInvitadoInEvento = {
+    //     creador: true,
+    //     nombre: this.authService.getLoggedUser().username
+    //   };
+    //   await this.eventoInvitadoController.eventoInvitadoControllerCreate(nuevoEventoID, creador).pipe().toPromise();
+    // }
 
     this.invitados.forEach(async invitado => {
 
       // tslint:disable-next-line: prefer-const
       let nuevoInvitado: NewInvitadoInEvento = {
-        creador: false,
+        creador: invitado.creador,
         nombre: invitado.nombre
       };
       await this.eventoInvitadoController.eventoInvitadoControllerCreate(nuevoEventoID, nuevoInvitado).pipe().toPromise();
