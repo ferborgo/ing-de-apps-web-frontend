@@ -30,7 +30,8 @@ export class EventoService {
       password: this.getConfig().password,
       resultadosPublicos: this.getConfig().resultadosPublicos,
       invitadosDinamicos: this.getConfig().invitadosDinamicos,
-      soloUnaOpcion: this.getConfig().soloUnaOpcion
+      soloUnaOpcion: this.getConfig().soloUnaOpcion,
+      activo: true
     };
 
     if (this.authService.isLoggedIn()) {

@@ -7,7 +7,10 @@
 
     <button mat-button (click)="onVolver()"> Volver </button>
     <button mat-button *ngIf="!editandoGeneral" (click)="onEditarGeneral()"> Editar </button>
+    <button mat-button *ngIf="evento.activo === true" (click)="desactivar(evento)"> Desactivar </button>
+    <button mat-button *ngIf="evento.activo === false" (click)="activar(evento)"> Activar </button>
 
+    <h5 *ngIf="evento.activo === false"> Este evento está desactivado </h5>
 
     <!-- GENERAL -->
     <div class="general">

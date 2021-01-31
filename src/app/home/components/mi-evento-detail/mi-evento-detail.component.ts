@@ -130,6 +130,30 @@ export class MiEventoDetailComponent implements OnInit {
       );
   }
 
+  desactivar(evento): void {
+    this.eventoEdicion.activo = false;
+    this.service.eventoControllerUpdateById(evento.id, this.eventoEdicion).subscribe(
+      response => {
+        this.evento.activo = false;
+        this.snak.open('Se desactivó el evento', '¡Bueno!', {
+          duration: 2000
+        });
+      }
+    );
+  }
+
+  activar(evento): void {
+    this.eventoEdicion.activo = true;
+    this.service.eventoControllerUpdateById(evento.id, this.eventoEdicion).subscribe(
+      response => {
+        this.evento.activo = true;
+        this.snak.open('Se activó nuevamente el evento', '¡Bueno!', {
+          duration: 2000
+        });
+      }
+    );
+  }
+
   armarDate(opcion): string {
     return DateUtils.generarTitulo(opcion.fechaInicio, opcion.fechaFinal);
   }

@@ -52,7 +52,9 @@ export class EventoDetailComponent implements OnInit {
         response => {
           console.log(response);
           this.getEvento(this.id, true);
-          this.autenticado = true;
+
+          // TO-DO: sacar timeout
+          setTimeout(() => this.autenticado = true, 600);
         },
         error => {
           console.log(error);
@@ -113,7 +115,8 @@ export class EventoDetailComponent implements OnInit {
         codigoResultados: false,
         invitadosDinamicos: true,
         resultadosPublicos: true,
-        soloUnaOpcion: true
+        soloUnaOpcion: true,
+        activo: true
       };
 
       filter.include = [
@@ -177,7 +180,7 @@ export class EventoDetailComponent implements OnInit {
       this.snak.open('¡Lo siento! Sólo puede elegir una opción', 'Bueno :(', {
         duration: 1500,
         direction: 'ltr'
-      })
+      });
       return;
     }
 

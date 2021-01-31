@@ -3,72 +3,80 @@
   <shared-navbar></shared-navbar>
 
   <h1 class="center"> {{ evento.nombre }} </h1>
-  <h4 *ngIf="creador"> Creado por {{ creador }} el día tal</h4>
+  <h4 *ngIf="creador"> Creado por {{ creador }} </h4>
 
   <p>
     {{ evento.descripcion }}
   </p>
 
-  <mat-form-field appearance="outline">
-    <mat-label> Contraseña </mat-label>
-    <input matInput type="password" [formControl]="passwordInput">
-  </mat-form-field>
-  <button mat-button (click)="verificar()"> Verificar </button>
+  <div *ngIf="!autenticado">
+    <mat-form-field appearance="outline">
+      <mat-label> Contraseña </mat-label>
+      <input matInput type="password" [formControl]="passwordInput">
+    </mat-form-field>
+    <button mat-button (click)="verificar()"> Verificar </button>
 
-  <p *ngIf="error">
-    Error: {{ error }}
-  </p>
+    <p *ngIf="error">
+      Error: {{ error }}
+    </p>
+  </div>
+
+
 </div>
 
 
 <div *ngIf="autenticado">
 
-  <h4> ¿Quién es usted? </h4>
-  <mat-form-field appearance="fill">
-    <mat-label> Invitados </mat-label>
-    <mat-select [formControl]="invitadoSeleccionado">
-      <mat-option *ngFor="let invitado of invitadosSinVotar" [value]="invitado.id">
-        {{ invitado.nombre }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-
-
-  <!-- Invitados dinámicos -->
-  <div class="invitados-dinamicos" *ngIf="evento.invitadosDinamicos">
+  <div *ngIf="evento.activo === true; else desactivado">
+    <h4> ¿Quién es usted? </h4>
     <mat-form-field appearance="fill">
-      <mat-label> ¿No se encuentra en la lista? Escriba su nombre</mat-label>
-      <input matInput type="text" [formControl]="nuevoInvitadoInput">
+      <mat-label> Invitados </mat-label>
+      <mat-select [formControl]="invitadoSeleccionado">
+        <mat-option *ngFor="let invitado of invitadosSinVotar" [value]="invitado.id">
+          {{ invitado.nombre }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
-    <button [disabled]="nuevoInvitadoInput.value.length < 3" mat-button (click)="agregarNuevoInvitado()"> Agregarme </button>
-  </div>
 
-  <h4> Opciones: </h4>
+    <!-- Invitados dinámicos -->
+    <div class="invitados-dinamicos" *ngIf="evento.invitadosDinamicos">
+      <mat-form-field appearance="fill">
+        <mat-label> ¿No se encuentra en la lista? Escriba su nombre</mat-label>
+        <input matInput type="text" [formControl]="nuevoInvitadoInput">
+      </mat-form-field>
+      <button [disabled]="nuevoInvitadoInput.value.length < 3" mat-button (click)="agregarNuevoInvitado()"> Agregarme
+      </button>
+    </div>
 
-  <form *ngIf="slidesForm" class="example-form" [formGroup]="slidesForm" (ngSubmit)="onVotar()" ngNativeValidate>
-    <div *ngFor="let opcion of evento.opciones">
+    <h4> Opciones: </h4>
 
-      <div>
-        {{ crearTituloOpcion(opcion.fechaInicio, opcion.fechaFinal) }}
-        <mat-slide-toggle formControlName="{{opcion.id}}"></mat-slide-toggle>
+    <form *ngIf="slidesForm" class="example-form" [formGroup]="slidesForm" (ngSubmit)="onVotar()" ngNativeValidate>
+      <div *ngFor="let opcion of evento.opciones">
+
+        <div>
+          {{ crearTituloOpcion(opcion.fechaInicio, opcion.fechaFinal) }}
+          <mat-slide-toggle formControlName="{{opcion.id}}"></mat-slide-toggle>
+        </div>
+
       </div>
+      <button *ngIf="invitadoSeleccionado.value" mat-raised-button type="submit"> Guardar elección </button>
+    </form>
+
+    <hr>
+
+    <div *ngIf="evento && evento.resultadosPublicos ; else sinResultados" class="resultados-container">
+
+      <shared-resultados [evento]="evento"></shared-resultados>
 
     </div>
-    <button *ngIf="invitadoSeleccionado.value" mat-raised-button type="submit"> Guardar elección </button>
-  </form>
 
-  <hr>
-
-
-
-  <div *ngIf="evento && evento.resultadosPublicos ; else sinResultados" class="resultados-container">
-
-    <shared-resultados [evento]="evento"></shared-resultados>
-
+    <ng-template #sinResultados>
+      Los resultados sólo los podrá ver el creador del evento
+    </ng-template>
   </div>
 
-  <ng-template #sinResultados>
-    Los resultados sólo los podrá ver el creador del evento
+  <ng-template #desactivado>
+    <h2> Este evento ha sido desactivado por el creador </h2>
   </ng-template>
 
 </div>
