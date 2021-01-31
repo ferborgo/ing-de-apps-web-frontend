@@ -1,27 +1,44 @@
-# Frontend
+# Meeting-o-Matic
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.26.
+## Funcionalidades
 
-## Development server
+### Públicas
+Estas funcionalidades pueden ser realizadas por un usuario "guest", es decir, no es necesario estar ni logueado ni registrado.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* Crear un evento y agregar invitados
+* Definir la configuración del evento: única opción, invitados dinámicos y resultados públicos/privados.
+* Obtener (por única vez) el link para el evento y, opcionalmente, el link para los resultados. Aclaración: si en el momento de la confirmación del evento, el usuario que lo creó no guardó el link del mismo, no podrá volver a ver el evento.
+* Ingresar, a través de un link, a un evento específico. Deberá ingresar la contraseña para ver los detalles y poder guardar sus elecciones.
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Privadas
+Estas funcionalidades las puede realizar un usuario logueado.
 
-## Build
+* Crear un evento y agregar invitados
+* Definir la configuración del evento: única opción, invitados dinámicos y resultados públicos/privados.
+* Obtener, las veces que haga falta, el link del mismo para enviárselo a los invitados
+* Ver los eventos creados y sus resultados.
+* Modificar el evento.
+* Agregar nuevos invitados una vez que ya fue creado el evento.
+* Desactivar un evento. Esto hace que los invitados no puedan guardar sus elecciones.
+* Clonar eventos. Replica un evento particular con su configuración, invitados, opciones, nombre y descripción en un solo click.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+TO-DO:
 
-## Running unit tests
+* Edición de eventos: falta poder agregar/¿modificar?/eliminar opciones, eliminar invitados.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+### Administración
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+* Ver todos los usuarios
+* Ver todos los eventos creados.
+* Eliminar usuarios y eventos.
 
-## Further help
+TO-DO:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+* Más y mejor info en ambos listados.
+* ¿Que sólo pueda ingresar a esta sección de admin?
+* Buscar en los listados.
+
+## Esquema de Base de Datos
+
