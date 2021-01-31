@@ -14,7 +14,7 @@
       <mat-grid-tile class="total"> Votos totales </mat-grid-tile>
       <mat-grid-tile class="total" *ngFor="let opcion of evento.opciones">
         {{ votosTotales(opcion) }}
-        <span *ngIf="opcionMasVotada && opcion.id == opcionMasVotada.id">
+        <span *ngIf="opcionMasVotada != undefined && opcion.id == opcionMasVotada.id">
           <mat-icon> done </mat-icon>
         </span>
       </mat-grid-tile>

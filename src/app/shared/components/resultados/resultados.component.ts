@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IInvitado } from '../../interfaces/invitado.interface';
+import { DateUtils } from '../../utils/date.utils';
 import { days } from '../calendar/calendar.component';
 
 @Component({
@@ -25,10 +26,7 @@ export class ResultadosComponent implements OnInit {
   }
 
   generarTitulo(start: Date, end: Date): string {
-    start = new Date(start);
-    end = new Date(end);
-    const dia = this.getDay(start.getDay());
-    return `${dia} de ${start.getHours()}${this.getMinutes(start)} a ${end.getHours()}${this.getMinutes(end)}`;
+    return DateUtils.generarTituloConMes(start, end);
   }
 
   private getDay(num: number): string {
@@ -56,13 +54,13 @@ export class ResultadosComponent implements OnInit {
       this.opcionMasVotada = {
         id: opcion.id,
         cant
-      }
+      };
     } else {
       if (cant > this.opcionMasVotada.cant) {
         this.opcionMasVotada = {
           id: opcion.id,
           cant
-        }
+        };
       }
     }
 

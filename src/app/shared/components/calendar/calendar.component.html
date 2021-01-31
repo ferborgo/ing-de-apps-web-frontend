@@ -1,5 +1,90 @@
 <div class="calendar-container">
 
+  <div class="btn-group">
+    <div
+      mwlCalendarPreviousView
+      [view]="view"
+      [(viewDate)]="viewDate"
+      (viewDateChange)="closeOpenMonthViewDay()"
+    >
+      <button mat-button> Semana anterior </button>
+    </div>
+    <div
+      mwlCalendarToday
+      [(viewDate)]="viewDate"
+    >
+      <button mat-button> Hoy </button>
+    </div>
+    <div
+      mwlCalendarNextView
+      [view]="view"
+      [(viewDate)]="viewDate"
+      (viewDateChange)="closeOpenMonthViewDay()"
+    >
+      <button mat-button> Semana siguiente </button>
+    </div>
+  </div>
+
+  <div btn-group>
+    <mat-form-field appearance="fill">
+      <mat-label> Hora comienzo </mat-label>
+      <mat-select [(value)]="horaComienzo">
+        <mat-option value="1"> 1 hs </mat-option>
+        <mat-option value="2"> 2 hs </mat-option>
+        <mat-option value="3"> 3 hs </mat-option>
+        <mat-option value="4"> 4 hs </mat-option>
+        <mat-option value="5"> 5 hs </mat-option>
+        <mat-option value="6"> 6 hs </mat-option>
+        <mat-option value="7"> 7 hs </mat-option>
+        <mat-option value="8"> 8 hs </mat-option>
+        <mat-option value="9"> 9 hs </mat-option>
+        <mat-option value="10"> 10 hs </mat-option>
+        <mat-option value="11"> 11 hs </mat-option>
+        <mat-option value="12"> 12 hs </mat-option>
+        <mat-option value="13"> 13 hs </mat-option>
+        <mat-option value="14"> 14 hs </mat-option>
+        <mat-option value="15"> 15 hs </mat-option>
+        <mat-option value="16"> 16 hs </mat-option>
+        <mat-option value="17"> 17 hs </mat-option>
+        <mat-option value="18"> 18 hs </mat-option>
+        <mat-option value="19"> 19 hs </mat-option>
+        <mat-option value="20"> 20 hs </mat-option>
+        <mat-option value="21"> 21 hs </mat-option>
+        <mat-option value="22"> 22 hs </mat-option>
+        <mat-option value="23"> 23 hs </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label> Hora final </mat-label>
+      <mat-select [(value)]="horaFinal">
+        <mat-option value="1"> 1 hs </mat-option>
+        <mat-option value="2"> 2 hs </mat-option>
+        <mat-option value="3"> 3 hs </mat-option>
+        <mat-option value="4"> 4 hs </mat-option>
+        <mat-option value="5"> 5 hs </mat-option>
+        <mat-option value="6"> 6 hs </mat-option>
+        <mat-option value="7"> 7 hs </mat-option>
+        <mat-option value="8"> 8 hs </mat-option>
+        <mat-option value="9"> 9 hs </mat-option>
+        <mat-option value="10"> 10 hs </mat-option>
+        <mat-option value="11"> 11 hs </mat-option>
+        <mat-option value="12"> 12 hs </mat-option>
+        <mat-option value="13"> 13 hs </mat-option>
+        <mat-option value="14"> 14 hs </mat-option>
+        <mat-option value="15"> 15 hs </mat-option>
+        <mat-option value="16"> 16 hs </mat-option>
+        <mat-option value="17"> 17 hs </mat-option>
+        <mat-option value="18"> 18 hs </mat-option>
+        <mat-option value="19"> 19 hs </mat-option>
+        <mat-option value="20"> 20 hs </mat-option>
+        <mat-option value="21"> 21 hs </mat-option>
+        <mat-option value="22"> 22 hs </mat-option>
+        <mat-option value="23"> 23 hs </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
   <div class="button-container">
     <button mat-button *ngIf="eventoSeleccionado" (click)="onBorrarEvento()">
       ¿Eliminar opción {{ eventoSeleccionado.id }} ?
@@ -11,7 +96,8 @@
   [viewDate]="viewDate"
   [events]="events"
   [refresh]="forRefresh"
-  [dayStartHour]="7"
+  [dayStartHour]="horaComienzo"
+  [dayEndHour]="horaFinal"
   (hourSegmentClicked)="onHourSegmentClick($event)"
   (eventTimesChanged)="onEventTimeChange($event)"
   (eventClicked)="onEventoClick($event)"

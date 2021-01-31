@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { CalendarEvent } from 'angular-calendar';
+import { CalendarEvent, CalendarView } from 'angular-calendar';
 import { Subject } from 'rxjs';
 import { EventoService } from '../../services/evento.service';
 
@@ -27,12 +27,17 @@ export class CalendarComponent implements OnInit, OnDestroy {
   forRefresh: Subject<any> = new Subject();
   viewDate: Date = new Date();
 
+  horaComienzo = '8';
+  horaFinal = '23';
+
   // https://github.com/mattlewis92/calendar-utils/blob/c51689985f59a271940e30bc4e2c4e1fee3fcb5c/src/calendarUtils.ts#L49-L63
   // https://angular-calendar.com/docs/components/CalendarWeekViewComponent.html#tooltipTemplate
   events: CalendarEvent[];
 
   eventoSeleccionado: CalendarEvent;
 
+  activeDayIsOpen = true;
+  view = CalendarView.Week;
   constructor(
     private eventoService: EventoService
   ) { }
@@ -77,6 +82,10 @@ export class CalendarComponent implements OnInit, OnDestroy {
     evento.end = event.newEnd;
     evento.title = this.generarTitulo(evento.start, evento.end);
     this.forRefresh.next();
+  }
+
+  closeOpenMonthViewDay() {
+    this.activeDayIsOpen = false;
   }
 
   private createEvent(id: number, start: Date, end: Date): CalendarEvent {
