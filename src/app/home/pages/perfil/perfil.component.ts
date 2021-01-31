@@ -35,10 +35,15 @@ export class PerfilComponent implements OnInit {
     this.findAll();
   }
 
-  private findAll(): void {
+  private findAll(mensaje?: string): void {
     this.eventoController.eventoControllerFindForUser().subscribe(
       res => {
         this.eventos = res;
+        if (mensaje) {
+          this.snak.open(mensaje, '¡Bueno!', {
+            duration: 2000
+          });
+        }
       },
       error => console.log('Error: ', error)
     );
@@ -59,7 +64,7 @@ export class PerfilComponent implements OnInit {
   }
 
   toggleSidebar(): void {
-    this.mostrarSidebar = ! this.mostrarSidebar;
+    this.mostrarSidebar = !this.mostrarSidebar;
     if (this.mostrarSidebar) {
       this.anchoEventos = 70;
     } else {
@@ -113,14 +118,25 @@ export class PerfilComponent implements OnInit {
     this.eventoService.finalizar()
       .then(response => {
         console.log(response);
-        this.snak.open('Se ha clonado el evento satisfactoriamente', '¡Qué bien!', {
-          duration: 2000
-        });
-        this.findAll();
+        this.findAll('Se ha clonado el evento satisfactoriamente');
       })
       .catch(error => {
         console.log('Error: ', error);
       });
+  }
+
+  onEliminar(evento) {
+    this.eventoController.eventoControllerDeleteById(evento.id).subscribe(
+      response => {
+        this.findAll('Se ha eliminado el evento satisfactoriamente');
+      },
+      error => {
+        console.log(error);
+        this.snak.open('Ha ocurrido un error al querer eliminar el evento', '¡Bueno!', {
+          duration: 2000
+        });
+      }
+    );
   }
 
 }

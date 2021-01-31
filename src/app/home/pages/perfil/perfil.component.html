@@ -37,10 +37,10 @@
     <div class="eventos-container" *ngIf="eventos; else cargando" [ngStyle]="{'width.%': anchoEventos}">
 
       <div *ngIf="! viendoEvento" class="eventos">
-        <mat-card>
+        <mat-card class="nuevo-evento-card" [routerLink]="['eventos/nuevo']">
           <mat-card-title> Nuevo evento </mat-card-title>
           <mat-card-actions>
-            <mat-icon [routerLink]="['eventos/nuevo']" class="add-icon"> add </mat-icon>
+            <mat-icon class="add-icon"> add </mat-icon>
           </mat-card-actions>
         </mat-card>
 
@@ -52,6 +52,7 @@
             <mat-card-actions>
               <button mat-button (click)="onVerEvento(evento)"> Ver </button>
               <button mat-button (click)="onClonar(evento)"> Clonar </button>
+              <button mat-button (click)="onEliminar(evento)"> Eliminar </button>
             </mat-card-actions>
           </mat-card-content>
         </mat-card>
