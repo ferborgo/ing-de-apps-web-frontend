@@ -19,6 +19,7 @@ export interface Evento {
     codigoResultados?: string;
     resultadosPublicos: boolean;
     soloUnaOpcion: boolean;
+    activo: boolean;
     invitadosDinamicos: boolean;
     usuarioCreadorID?: string;
 }

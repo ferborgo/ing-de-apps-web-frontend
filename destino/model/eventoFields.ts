@@ -19,6 +19,7 @@ export interface EventoFields {
     codigoResultados?: boolean;
     resultadosPublicos?: boolean;
     soloUnaOpcion?: boolean;
+    activo?: boolean;
     invitadosDinamicos?: boolean;
     usuarioCreadorID?: boolean;
 }
