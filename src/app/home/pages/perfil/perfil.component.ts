@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
+import { CalendarEvent } from 'angular-calendar';
 import { EventoControllerService, EventoFilter, EventoWithRelations } from 'destino';
 import { AuthService, IUser } from 'src/app/auth/services/auth.service';
+import { IConfig } from 'src/app/shared/interfaces/config.interface';
+import { IDatosGenerales } from 'src/app/shared/interfaces/datos.generales.interface';
+import { IInvitado } from 'src/app/shared/interfaces/invitado.interface';
+import { IOpcion } from 'src/app/shared/interfaces/opcion.interface';
+import { EventoService } from 'src/app/shared/services/evento.service';
 
 @Component({
   selector: 'app-perfil',
@@ -18,14 +25,19 @@ export class PerfilComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private eventoController: EventoControllerService
+    private eventoController: EventoControllerService,
+    private eventoService: EventoService,
+    private snak: MatSnackBar
   ) { }
 
   ngOnInit() {
     this.user = this.authService.getLoggedUser();
+    this.findAll();
+  }
+
+  private findAll(): void {
     this.eventoController.eventoControllerFindForUser().subscribe(
       res => {
-        console.log('Res: ', res);
         this.eventos = res;
       },
       error => console.log('Error: ', error)
@@ -53,6 +65,62 @@ export class PerfilComponent implements OnInit {
     } else {
       this.anchoEventos = 100;
     }
+  }
+
+  onClonar(evento) {
+    console.log(evento);
+    const config: IConfig = {
+      invitadosDinamicos: evento.invitadosDinamicos,
+      password: evento.password,
+      resultadosPublicos: evento.resultadosPublicos,
+      soloUnaOpcion: evento.soloUnaOpcion
+    };
+    this.eventoService.setConfig(config);
+
+
+    const datos: IDatosGenerales = {
+      nombre: `${evento.nombre} (clonado)`,
+      descripcion: evento.descripcion
+    };
+    this.eventoService.setDatosGenerales(datos);
+
+
+    const invitados: IInvitado[] = [];
+    evento.invitados.forEach(invitado => {
+      // tslint:disable-next-line: prefer-const
+      let nuevoInvitado: IInvitado = {
+        creador: invitado.creador,
+        nombre: invitado.nombre,
+        email: invitado.email
+      };
+      invitados.push(nuevoInvitado);
+    });
+    this.eventoService.setInvitados(invitados);
+
+
+    const opciones: CalendarEvent[] = [];
+    evento.opciones.forEach(opcion => {
+      // tslint:disable-next-line: prefer-const
+      let nuevaOpcion: CalendarEvent = {
+        title: '',
+        start: new Date(opcion.fechaInicio),
+        end: new Date(opcion.fechaFinal)
+      };
+      opciones.push(nuevaOpcion);
+    });
+    this.eventoService.setOpciones(opciones);
+
+    this.eventoService.finalizar()
+      .then(response => {
+        console.log(response);
+        this.snak.open('Se ha clonado el evento satisfactoriamente', '¡Qué bien!', {
+          duration: 2000
+        });
+        this.findAll();
+      })
+      .catch(error => {
+        console.log('Error: ', error);
+      });
   }
 
 }
