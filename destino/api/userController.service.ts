@@ -46,6 +46,7 @@ export class UserControllerService {
             }
             this.configuration.basePath = basePath;
         }
+        this.configuration.accessToken = localStorage.getItem('token');
         this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
     }
 
