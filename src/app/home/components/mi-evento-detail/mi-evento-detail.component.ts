@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { EventoControllerService, EventoInvitadoControllerService, EventoPartial, InvitadoControllerService, InvitadoPartial, NewInvitadoInEvento } from 'destino';
 import { DateUtils } from 'src/app/shared/utils/date.utils';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-mi-evento-detail',
@@ -195,7 +196,8 @@ export class MiEventoDetailComponent implements OnInit {
 
   private armarURL(): string {
     const id = this.evento.id;
-    return `localhost:4200/eventos/${id}`;
+
+    return `${environment.FRONTEND_URL}/eventos/${id}`;
   }
 
   updateConfig(propiedad: string) {

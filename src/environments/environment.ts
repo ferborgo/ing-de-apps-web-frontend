@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  API_BASE_PATH: 'http://127.0.0.1:3000'
+  API_BASE_PATH: 'http://127.0.0.1:3000',
+  FRONTEND_URL: 'http://localhost:4200'
 };
 
 

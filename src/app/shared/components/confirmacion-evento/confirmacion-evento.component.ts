@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { EventoControllerService } from 'destino';
+import { environment } from 'src/environments/environment';
 import { EventoService } from '../../services/evento.service';
 
 @Component({
@@ -38,7 +39,7 @@ export class ConfirmacionEventoComponent implements OnInit, OnDestroy {
   }
   armarURLResultados(codigoResultados: string): string {
     const id = this.eventoService.getNuevoEventoID();
-    return `localhost:4200/eventos/${id}/resultados/${codigoResultados}`;
+    return `${environment.FRONTEND_URL}eventos/${id}/resultados/${codigoResultados}`;
   }
 
   onVolver(): void {
@@ -51,7 +52,7 @@ export class ConfirmacionEventoComponent implements OnInit, OnDestroy {
 
   private armarURL(): string {
     const id = this.eventoService.getNuevoEventoID();
-    return `localhost:4200/eventos/${id}`;
+    return `${environment.FRONTEND_URL}eventos/${id}`;
   }
 
 }
