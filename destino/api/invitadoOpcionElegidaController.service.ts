@@ -24,6 +24,7 @@ import { OpcionElegidaPartial } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -32,7 +33,7 @@ import { Configuration }                                     from '../configurat
 })
 export class InvitadoOpcionElegidaControllerService {
 
-    protected basePath = 'http://localhost:3000';
+    protected basePath = `${environment.API_BASE_PATH}`;
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
     public encoder: HttpParameterCodec;
@@ -89,8 +90,8 @@ export class InvitadoOpcionElegidaControllerService {
     }
 
     /**
-     * @param id 
-     * @param newOpcionElegidaInInvitado 
+     * @param id
+     * @param newOpcionElegidaInInvitado
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -151,8 +152,8 @@ export class InvitadoOpcionElegidaControllerService {
     }
 
     /**
-     * @param id 
-     * @param where 
+     * @param id
+     * @param where
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -210,8 +211,8 @@ export class InvitadoOpcionElegidaControllerService {
     }
 
     /**
-     * @param id 
-     * @param filter 
+     * @param id
+     * @param filter
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -269,9 +270,9 @@ export class InvitadoOpcionElegidaControllerService {
     }
 
     /**
-     * @param id 
-     * @param where 
-     * @param opcionElegidaPartial 
+     * @param id
+     * @param where
+     * @param opcionElegidaPartial
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */

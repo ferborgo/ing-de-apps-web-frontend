@@ -27,6 +27,7 @@ import { OpcionElegidaWithRelations } from '../model/models';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -35,7 +36,7 @@ import { Configuration }                                     from '../configurat
 })
 export class OpcionElegidaControllerService {
 
-    protected basePath = 'http://localhost:3000';
+    protected basePath = `${environment.API_BASE_PATH}`;
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
     public encoder: HttpParameterCodec;
@@ -92,7 +93,7 @@ export class OpcionElegidaControllerService {
     }
 
     /**
-     * @param where 
+     * @param where
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -147,7 +148,7 @@ export class OpcionElegidaControllerService {
     }
 
     /**
-     * @param newOpcionElegida 
+     * @param newOpcionElegida
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -205,7 +206,7 @@ export class OpcionElegidaControllerService {
     }
 
     /**
-     * @param id 
+     * @param id
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -255,7 +256,7 @@ export class OpcionElegidaControllerService {
     }
 
     /**
-     * @param filter 
+     * @param filter
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -310,8 +311,8 @@ export class OpcionElegidaControllerService {
     }
 
     /**
-     * @param id 
-     * @param filter 
+     * @param id
+     * @param filter
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -369,8 +370,8 @@ export class OpcionElegidaControllerService {
     }
 
     /**
-     * @param id 
-     * @param opcionElegida 
+     * @param id
+     * @param opcionElegida
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -430,8 +431,8 @@ export class OpcionElegidaControllerService {
     }
 
     /**
-     * @param where 
-     * @param opcionElegidaPartial 
+     * @param where
+     * @param opcionElegidaPartial
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -496,8 +497,8 @@ export class OpcionElegidaControllerService {
     }
 
     /**
-     * @param id 
-     * @param opcionElegidaPartial 
+     * @param id
+     * @param opcionElegidaPartial
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
