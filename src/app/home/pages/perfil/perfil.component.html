@@ -59,7 +59,7 @@
       </div>
 
       <div *ngIf="viendoEvento" class="mi-evento-container">
-        <app-mi-evento-detail [evento]="eventoViendo" (salir)="onSalirDeEvento()"></app-mi-evento-detail>
+        <app-mi-evento-detail [evento]="eventoViendo" (salir)="onSalirDeEvento($event)"></app-mi-evento-detail>
       </div>
 
     </div>
