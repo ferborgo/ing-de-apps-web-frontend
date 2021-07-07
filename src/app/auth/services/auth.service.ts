@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { UserControllerService } from 'destino/api/userController.service';
 import { TokenService } from './token.service';
 import { tap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { of } from 'rxjs';
 
 export interface IUser {
   username: string;
@@ -19,7 +21,8 @@ export class AuthService {
   constructor(
     private tokenService: TokenService,
     private controllerUser: UserControllerService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) { }
 
   isLoggedIn(): boolean {
@@ -61,5 +64,14 @@ export class AuthService {
       return;
     }
     return user;
+  }
+
+  postSocialLogin(data: any) {
+    return this.http.post('http://localhost:3000/users/postSocialLogin', data).pipe(
+      tap((response: any) => {
+        this.tokenService.saveToken(response.token, response.admin);
+        this.router.navigateByUrl('/');
+      })
+    );
   }
 }

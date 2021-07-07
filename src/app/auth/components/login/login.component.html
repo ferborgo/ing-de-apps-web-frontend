@@ -1,32 +1,45 @@
 <div class="login">
-    <h1>Iniciá sesión</h1>
-    <p class="error" *ngIf="error"> {{ error }} </p>
-    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" *ngIf="!loading ; else cargando">
+  <h1>Iniciá sesión</h1>
+  <p class="error" *ngIf="error"> {{ error }} </p>
+  <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()" *ngIf="!loading ; else cargando">
 
-        <mat-form-field appearance="outline">
-            <mat-label> Email </mat-label>
-            <input matInput formControlName="email">
-            <mat-icon matSuffix>person</mat-icon>
-        </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label> Email </mat-label>
+      <input matInput formControlName="email">
+      <mat-icon matSuffix>person</mat-icon>
+    </mat-form-field>
 
-        <mat-form-field appearance="outline">
-            <mat-label> Contraseña </mat-label>
-            <input type="password" matInput formControlName="password">
-            <mat-icon matSuffix>vpn_key</mat-icon>
-        </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label> Contraseña </mat-label>
+      <input type="password" matInput formControlName="password">
+      <mat-icon matSuffix>vpn_key</mat-icon>
+    </mat-form-field>
 
-        <button mat-button [disabled]="! loginForm.valid">
-            Login
-        </button>
-    </form>
+    <button mat-button [disabled]="! loginForm.valid">
+      Login
+    </button>
 
-    <div class="no-tenes-cuenta" *ngIf="!loading">
-        ¿No tenés cuenta? <a routerLink="/auth/register" class="registrate"> Registrate </a>
+
+    <div class="google-login-button-container">
+      <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+
+      <div class="google-btn" mat-button (click)="googleLogin()">
+        <div class="google-icon-wrapper">
+          <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
+        </div>
+        <p class="btn-text"><b> Google Login </b></p>
+      </div>
     </div>
 
-    <ng-template #cargando>
-      <div class="spinner-container">
-        <mat-spinner></mat-spinner>
-      </div>
-    </ng-template>
+  </form>
+
+  <div class="no-tenes-cuenta" *ngIf="!loading">
+    ¿No tenés cuenta? <a routerLink="/auth/register" class="registrate"> Registrate </a>
+  </div>
+
+  <ng-template #cargando>
+    <div class="spinner-container">
+      <mat-spinner></mat-spinner>
+    </div>
+  </ng-template>
 </div>

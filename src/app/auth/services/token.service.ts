@@ -28,7 +28,12 @@ export class TokenService {
     localStorage.setItem('email', email);
     localStorage.setItem('username', username);
     localStorage.setItem('id', id);
-    (admin) ? localStorage.setItem('admin', String(admin)) : localStorage.setItem('admin', 'false');
+
+    if (admin && admin !== 'undefined') {
+      localStorage.setItem('admin', String(admin));
+    } else {
+      localStorage.setItem('admin', 'false');
+    }
   }
 
   getToken(): string {

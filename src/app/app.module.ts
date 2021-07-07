@@ -11,6 +11,8 @@ import { SharedModule } from './shared/shared.module';
 import { TokenService } from './auth/services/token.service';
 import { MaterialModule } from './material/material.module';
 import { AuthComponent } from './auth/auth.component';
+import { AuthServiceConfig, SocialLoginModule } from 'angularx-social-login';
+import { provideConfig } from './shared/socialLoginConfig';
 
 @NgModule({
   declarations: [
@@ -25,9 +27,16 @@ import { AuthComponent } from './auth/auth.component';
     ApiModule,
     HttpClientModule,
     SharedModule,
-    MaterialModule
+    MaterialModule,
+    SocialLoginModule
   ],
-  providers: [TokenService],
+  providers: [
+    TokenService,
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
