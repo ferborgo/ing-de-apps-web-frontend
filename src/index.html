@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Meeting-o-Matic</title>
@@ -8,8 +9,30 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://sdk.mercadopago.com/js/v2"></script>
+
+  <script>
+    // Agrega credenciales de SDK
+    const mp = new MercadoPago('TEST-e8ae8461-00e4-4d41-adac-2d0b4d7dcbd9', {
+      locale: 'es-AR'
+    });
+
+    // Inicializa el checkout
+    mp.checkout({
+      preference: {
+        id: 'YOUR_PREFERENCE_ID'
+      },
+      render: {
+        container: '.cho-container', // Indica dónde se mostrará el botón de pago
+        label: 'Pagar', // Cambia el texto del botón de pago (opcional)
+      }
+    });
+  </script>
+
 </head>
+
 <body>
   <app-root></app-root>
 </body>
+
 </html>

@@ -7,11 +7,17 @@ import { MiEventoDetailComponent } from './components/mi-evento-detail/mi-evento
 import { SharedModule } from '../shared/shared.module';
 import { HomeNuevoEventoComponent } from './pages/home-nuevo-evento/home-nuevo-evento.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MercadoPagoSuccessComponent } from './pages/mercadopagosuccess/mercadopagosuccess.component';
 
 
 
 @NgModule({
-  declarations: [PerfilComponent, MiEventoDetailComponent, HomeNuevoEventoComponent],
+  declarations: [
+    PerfilComponent,
+    MiEventoDetailComponent,
+    HomeNuevoEventoComponent,
+    MercadoPagoSuccessComponent
+  ],
   imports: [
     CommonModule,
     HomeRoutingModule,

@@ -1,0 +1,18 @@
+<div class="success" *ngIf="!loading ; else cargando">
+
+  <shared-navbar></shared-navbar>
+
+  <div class="content">
+    <h1> {{ title }} </h1>
+    <h4>
+      Ya tenes paga la subscripción del mes actual
+    </h4>
+  </div>
+
+</div>
+
+<ng-template #cargando>
+  <div class="spinner-container">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

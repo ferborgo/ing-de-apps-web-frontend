@@ -8,6 +8,7 @@ import { IDatosGenerales } from 'src/app/shared/interfaces/datos.generales.inter
 import { IInvitado } from 'src/app/shared/interfaces/invitado.interface';
 import { IOpcion } from 'src/app/shared/interfaces/opcion.interface';
 import { EventoService } from 'src/app/shared/services/evento.service';
+import { MercadopagoService } from 'src/app/shared/services/mercadopago.service';
 
 @Component({
   selector: 'app-perfil',
@@ -27,7 +28,8 @@ export class PerfilComponent implements OnInit {
     private authService: AuthService,
     private eventoController: EventoControllerService,
     private eventoService: EventoService,
-    private snak: MatSnackBar
+    private snak: MatSnackBar,
+    private mp: MercadopagoService
   ) { }
 
   ngOnInit() {
@@ -137,6 +139,10 @@ export class PerfilComponent implements OnInit {
         });
       }
     );
+  }
+
+  onPremium() {
+    this.mp.comprar();
   }
 
 }
