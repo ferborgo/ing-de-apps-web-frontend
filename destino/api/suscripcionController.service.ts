@@ -49,6 +49,8 @@ export class SuscripcionControllerService {
             this.configuration.basePath = basePath;
         }
         this.encoder = this.configuration.encoder || new CustomHttpParameterCodec();
+
+        this.configuration.accessToken = localStorage.getItem('token');
     }
 
 
@@ -90,7 +92,7 @@ export class SuscripcionControllerService {
     }
 
     /**
-     * @param where 
+     * @param where
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -192,7 +194,7 @@ export class SuscripcionControllerService {
     }
 
     /**
-     * @param id 
+     * @param id
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -242,8 +244,8 @@ export class SuscripcionControllerService {
     }
 
     /**
-     * @param id 
-     * @param filter 
+     * @param id
+     * @param filter
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -348,8 +350,54 @@ export class SuscripcionControllerService {
     }
 
     /**
-     * @param id 
-     * @param suscripcion 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public suscripcionControllerMesPago(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined}): Observable<any>;
+    public suscripcionControllerMesPago(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined}): Observable<HttpResponse<any>>;
+    public suscripcionControllerMesPago(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined}): Observable<HttpEvent<any>>;
+    public suscripcionControllerMesPago(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined}): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (jwt) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
+        return this.httpClient.get<any>(`${this.configuration.basePath}/suscripciones/mesActualPago`,
+            {
+                responseType: <any>responseType,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param id
+     * @param suscripcion
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -409,8 +457,8 @@ export class SuscripcionControllerService {
     }
 
     /**
-     * @param where 
-     * @param suscripcionPartial 
+     * @param where
+     * @param suscripcionPartial
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
@@ -475,8 +523,8 @@ export class SuscripcionControllerService {
     }
 
     /**
-     * @param id 
-     * @param suscripcionPartial 
+     * @param id
+     * @param suscripcionPartial
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */

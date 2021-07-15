@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import * as moment from 'moment';
 import { AuthService, IUser } from 'src/app/auth/services/auth.service';
+import { SuscripcionService } from '../../services/suscripcion.service';
 
 @Component({
   selector: 'app-mercadopagosuccess',
@@ -23,10 +25,12 @@ export class MercadoPagoSuccessComponent implements OnInit {
   title: string;
   usuarioLogueado: IUser;
   loading = true;
+  fechaHasta: Date;
 
   constructor(
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private suscripcionService: SuscripcionService
   ) { }
 
   ngOnInit() {
@@ -35,8 +39,12 @@ export class MercadoPagoSuccessComponent implements OnInit {
       params => {
         console.log(params);
         if (params.status === 'approved') {
-          // TO-DO: actualizar en backend.
-          this.title = `¡Felicitaciones ${this.usuarioLogueado.username}!`;
+          this.suscripcionService.subscribe().subscribe(
+            response => {
+              this.fechaHasta = moment(response.fecha).add(1, 'month').toDate();
+              this.title = `¡Felicitaciones ${this.usuarioLogueado.username}!`;
+            }
+          );
         }
 
         this.loading = false;

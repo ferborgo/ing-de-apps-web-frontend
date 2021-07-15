@@ -9,6 +9,7 @@ import { IInvitado } from 'src/app/shared/interfaces/invitado.interface';
 import { IOpcion } from 'src/app/shared/interfaces/opcion.interface';
 import { EventoService } from 'src/app/shared/services/evento.service';
 import { MercadopagoService } from 'src/app/shared/services/mercadopago.service';
+import { SuscripcionService } from '../../services/suscripcion.service';
 
 @Component({
   selector: 'app-perfil',
@@ -23,17 +24,22 @@ export class PerfilComponent implements OnInit {
   eventoViendo: any;
   mostrarSidebar = true;
   anchoEventos = 70;
+  mesPagado: boolean;
 
   constructor(
     private authService: AuthService,
     private eventoController: EventoControllerService,
     private eventoService: EventoService,
     private snak: MatSnackBar,
-    private mp: MercadopagoService
+    private mp: MercadopagoService,
+    private suscripcionService: SuscripcionService
   ) { }
 
   ngOnInit() {
     this.user = this.authService.getLoggedUser();
+
+    this.suscripcionService.isMonthPaid().subscribe(res => this.mesPagado = res);
+
     this.findAll();
   }
 
