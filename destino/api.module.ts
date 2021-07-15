@@ -12,6 +12,7 @@ import { MercadopagoControllerService } from './api/mercadopagoController.servic
 import { OpcionElegidaControllerService } from './api/opcionElegidaController.service';
 import { OpcionOpcionElegidaControllerService } from './api/opcionOpcionElegidaController.service';
 import { PingControllerService } from './api/pingController.service';
+import { SuscripcionControllerService } from './api/suscripcionController.service';
 import { UserControllerService } from './api/userController.service';
 
 @NgModule({
