@@ -14,6 +14,7 @@ export class EventoService {
   private invitados: IInvitado[] = [];
   private nuevoEventoID: string;
   private config: IConfig;
+  private eventosGratisPorMes = 10;
 
   constructor(
     private eventoController: EventoControllerService,
@@ -31,7 +32,8 @@ export class EventoService {
       resultadosPublicos: this.getConfig().resultadosPublicos,
       invitadosDinamicos: this.getConfig().invitadosDinamicos,
       soloUnaOpcion: this.getConfig().soloUnaOpcion,
-      activo: true
+      activo: true,
+      fechaCreacion: new Date().toISOString()
     };
 
     if (this.authService.isLoggedIn()) {
@@ -121,5 +123,9 @@ export class EventoService {
       response => console.log(response),
       error => console.log(error)
     );
+  }
+
+  getEventosGratisPorMes(): number {
+    return this.eventosGratisPorMes;
   }
 }

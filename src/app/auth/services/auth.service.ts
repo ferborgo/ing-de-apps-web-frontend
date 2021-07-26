@@ -5,6 +5,7 @@ import { TokenService } from './token.service';
 import { tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
+import { SuscripcionService } from 'src/app/home/services/suscripcion.service';
 
 export interface IUser {
   username: string;
@@ -22,7 +23,8 @@ export class AuthService {
     private tokenService: TokenService,
     private controllerUser: UserControllerService,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private suscripcionService: SuscripcionService
   ) { }
 
   isLoggedIn(): boolean {
@@ -73,5 +75,9 @@ export class AuthService {
         this.router.navigateByUrl('/');
       })
     );
+  }
+
+  isPremium(): Promise<boolean> {
+    return this.suscripcionService.isMonthPaid().toPromise();
   }
 }

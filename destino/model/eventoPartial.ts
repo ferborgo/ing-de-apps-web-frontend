@@ -25,5 +25,6 @@ export interface EventoPartial {
     activo?: boolean;
     invitadosDinamicos?: boolean;
     usuarioCreadorID?: string;
+    fechaCreacion?: string;
 }
 

@@ -22,5 +22,6 @@ export interface EventoFields {
     activo?: boolean;
     invitadosDinamicos?: boolean;
     usuarioCreadorID?: boolean;
+    fechaCreacion?: boolean;
 }
 

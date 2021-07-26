@@ -27,6 +27,7 @@ export interface EventoWithRelations {
     activo: boolean;
     invitadosDinamicos: boolean;
     usuarioCreadorID?: string;
+    fechaCreacion: string;
     opciones?: Array<OpcionWithRelations>;
     invitados?: Array<InvitadoWithRelations>;
 }

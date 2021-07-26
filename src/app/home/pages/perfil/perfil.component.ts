@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { CalendarEvent } from 'angular-calendar';
-import { EventoControllerService, EventoFilter, EventoWithRelations } from 'destino';
+import { Evento, EventoControllerService, EventoFilter, EventoWithRelations } from 'destino';
 import { AuthService, IUser } from 'src/app/auth/services/auth.service';
 import { IConfig } from 'src/app/shared/interfaces/config.interface';
 import { IDatosGenerales } from 'src/app/shared/interfaces/datos.generales.interface';
@@ -25,6 +25,7 @@ export class PerfilComponent implements OnInit {
   mostrarSidebar = true;
   anchoEventos = 70;
   mesPagado: boolean;
+  eventosRestantes: number;
 
   constructor(
     private authService: AuthService,
@@ -35,10 +36,10 @@ export class PerfilComponent implements OnInit {
     private suscripcionService: SuscripcionService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.user = this.authService.getLoggedUser();
 
-    this.suscripcionService.isMonthPaid().subscribe(res => this.mesPagado = res);
+    this.mesPagado = await this.suscripcionService.isMonthPaid().toPromise();
 
     this.findAll();
   }
@@ -51,6 +52,9 @@ export class PerfilComponent implements OnInit {
           this.snak.open(mensaje, '¡Bueno!', {
             duration: 2000
           });
+        }
+        if (!this.mesPagado) {
+          this.eventosRestantes = this.calcularEventosRestantes(this.eventos);
         }
       },
       error => console.log('Error: ', error)
@@ -149,6 +153,12 @@ export class PerfilComponent implements OnInit {
 
   onPremium() {
     this.mp.comprar();
+  }
+
+  private calcularEventosRestantes(eventos: Evento[]): number {
+    const mesActual = new Date().getMonth();
+    const eventosMesActual = eventos.filter(evento => new Date(evento.fechaCreacion).getMonth() === mesActual);
+    return (this.eventoService.getEventosGratisPorMes() - eventosMesActual.length);
   }
 
 }

@@ -12,8 +12,8 @@
 
       <div class="sidebar-content">
         <h2> Tu Perfil </h2>
-        <p>
-          Te quedan 9 eventos para este mes de noviembre
+        <p *ngIf="!mesPagado">
+          Te quedan {{ eventosRestantes}} eventos para este mes de noviembre
         </p>
         <div class="usuario">
           {{ user.email }}

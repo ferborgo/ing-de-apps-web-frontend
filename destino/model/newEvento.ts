@@ -24,5 +24,6 @@ export interface NewEvento {
     activo: boolean;
     invitadosDinamicos: boolean;
     usuarioCreadorID?: string;
+    fechaCreacion: string;
 }
 
