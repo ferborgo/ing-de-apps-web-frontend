@@ -6,6 +6,7 @@ import { tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { SuscripcionService } from 'src/app/home/services/suscripcion.service';
+import { environment } from 'src/environments/environment';
 
 export interface IUser {
   username: string;
@@ -69,7 +70,7 @@ export class AuthService {
   }
 
   postSocialLogin(data: any) {
-    return this.http.post('http://localhost:3000/users/postSocialLogin', data).pipe(
+    return this.http.post(`${environment.API_BASE_PATH}/users/postSocialLogin`, data).pipe(
       tap((response: any) => {
         this.tokenService.saveToken(response.token, response.admin);
         this.router.navigateByUrl('/');
