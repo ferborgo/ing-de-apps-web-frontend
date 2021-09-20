@@ -49,23 +49,31 @@ export class LoginComponent implements OnInit {
   }
 
 
-  googleLogin() {
+  async googleLogin() {
     this.loading = true;
     this.error = null;
-    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
-    this.socialAuthService.authState
-      .subscribe((user) => {
-        if (user) {
-          console.log('user: ', user);
-          this.authService.postSocialLogin({
-            username: user.name,
-            email: user.email,
-            profileImage: user.photoUrl,
-            googleId: user.id
-          }).subscribe((res) => {
-            console.log(res);
-          });
-        }
-      });
+    const user = await this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.authService.postSocialLogin({
+      username: user.name,
+      email: user.email,
+      profileImage: user.photoUrl,
+      googleId: user.id
+    }).subscribe((res) => {
+      console.log(res);
+    });
+    // this.socialAuthService.authState
+    //   .subscribe((user) => {
+    //     if (user) {
+    //       console.log('user: ', user);
+    //       this.authService.postSocialLogin({
+    //         username: user.name,
+    //         email: user.email,
+    //         profileImage: user.photoUrl,
+    //         googleId: user.id
+    //       }).subscribe((res) => {
+    //         console.log(res);
+    //       });
+    //     }
+    //   });
   }
 }
