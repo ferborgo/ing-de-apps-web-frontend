@@ -12,8 +12,11 @@
 
       <div class="sidebar-content">
         <h2> Tu Perfil </h2>
-        <p *ngIf="!mesPagado">
+        <p *ngIf="!mesPagado && eventosRestantes > 0">
           Te quedan {{ eventosRestantes}} eventos para este mes de noviembre
+        </p>
+        <p *ngIf="!mesPagado && eventosRestantes == 0">
+          ¡Ya no podés agregar nuevos eventos! Conviertete en Premium para tener eventos ilimitados
         </p>
         <div class="usuario">
           {{ user.email }}
@@ -49,7 +52,7 @@
     <div class="eventos-container" *ngIf="eventos; else cargando" [ngStyle]="{'width.%': anchoEventos}">
 
       <div *ngIf="! viendoEvento" class="eventos">
-        <mat-card class="nuevo-evento-card" [routerLink]="['eventos/nuevo']">
+        <mat-card *ngIf="puedeAgregarNuevos" class="nuevo-evento-card" [routerLink]="['eventos/nuevo']">
           <mat-card-title> Nuevo evento </mat-card-title>
           <mat-card-actions>
             <mat-icon class="add-icon"> add </mat-icon>
@@ -63,7 +66,7 @@
             <div> {{ evento.opciones.length }} opciones </div>
             <mat-card-actions>
               <button mat-button (click)="onVerEvento(evento)"> Ver </button>
-              <button mat-button (click)="onClonar(evento)"> Clonar </button>
+              <button [disabled]="!puedeAgregarNuevos" mat-button (click)="onClonar(evento)"> Clonar </button>
               <button mat-button (click)="onEliminar(evento)"> Eliminar </button>
             </mat-card-actions>
           </mat-card-content>

@@ -49,7 +49,7 @@
 
 
   <button mat-button (click)="onAnterior()"> Anterior </button>
-  <button mat-button (click)="onSiguiente()"> Finalizar </button>
+  <button mat-button [disabled]="!puedeCrearEventos" (click)="onSiguiente()"> Finalizar </button>
 </div>
 
 <ng-template #cargando>

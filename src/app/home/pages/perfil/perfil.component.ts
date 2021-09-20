@@ -26,6 +26,7 @@ export class PerfilComponent implements OnInit {
   anchoEventos = 70;
   mesPagado: boolean;
   eventosRestantes: number;
+  puedeAgregarNuevos: boolean;
 
   constructor(
     private authService: AuthService,
@@ -55,6 +56,7 @@ export class PerfilComponent implements OnInit {
         }
         if (!this.mesPagado) {
           this.eventosRestantes = this.calcularEventosRestantes(this.eventos);
+          this.puedeAgregarNuevos = this.mesPagado || this.eventosRestantes > 0;
         }
       },
       error => console.log('Error: ', error)

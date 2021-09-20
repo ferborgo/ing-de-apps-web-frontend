@@ -18,6 +18,8 @@ const usuarioCompradorPrueba = {
   password: 'qatest7652'
 };
 
+// Tarjetas de prueba: https://www.mercadopago.com.ar/developers/es/guides/online-payments/checkout-pro/test-integration
+
 
 /**
  * COMPRADOR:
@@ -53,5 +55,12 @@ export class MercadopagoService {
       }
     );
 
+  }
+
+  default() {
+    this.mp.mercadopagoControllerCreateDefault().subscribe(
+      res => console.log(res),
+      error => console.log(error)
+    );
   }
 }
