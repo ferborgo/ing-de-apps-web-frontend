@@ -72,7 +72,10 @@ Número: 5031 7557 3453 0604
 Código de seguridad: 123
 Fecha de vencimiento: 11/25
 Nombre del titular: APRO
+DNI: 12312312
 ```
+
+En caso de probar esta funcionalidad localmente, se debe poner en true el flag por código en el archivo del backend `mercadopago.controller.ts` en la línea 21.
 
 ## Ambiente de producción
 
