@@ -41,7 +41,7 @@ export class AuthService {
     return this.controllerUser.userControllerLogin(request).pipe(
       tap((response: any) => {
         this.tokenService.saveToken(response.token, response.admin);
-        this.router.navigateByUrl('/');
+        setTimeout(() => this.router.navigateByUrl('/'), 300);
       })
     );
   }
