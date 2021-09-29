@@ -57,6 +57,8 @@ export class PerfilComponent implements OnInit {
         if (!this.mesPagado) {
           this.eventosRestantes = this.calcularEventosRestantes(this.eventos);
           this.puedeAgregarNuevos = this.mesPagado || this.eventosRestantes > 0;
+        } else {
+          this.puedeAgregarNuevos = true;
         }
       },
       error => console.log('Error: ', error)
